@@ -1,6 +1,8 @@
 import Estudios from "./Estudios";
+import Idiomas from "./Idiomas";
 import Proyectos from "./Proyectos";
 import SoftSkills from "./SoftSkills";
+
 
 Estudios;
 
@@ -17,6 +19,7 @@ const Main = () => {
       <Estudios />
       <SoftSkills />
       <Proyectos />
+      <Idiomas />
     </div>
   );
 };

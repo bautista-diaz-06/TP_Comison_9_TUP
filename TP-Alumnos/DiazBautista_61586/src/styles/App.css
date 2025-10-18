@@ -1,6 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #34167a, #d10404);
+  background-attachment: fixed; 
+  font-family: "Poppins", sans-serif;
+}
+
 .header {
-  align-items: center;                  /* Espacio entre imagen y texto */
-  background-color: #6d1818;  /* (opcional) color de fondo */
+  align-items: center;
   padding: 2rem;
   text-align: center;
 }
@@ -20,17 +27,10 @@
 
 .Main{
   text-align: center;
-  background: #030026;
-background: linear-gradient(90deg, rgba(3, 0, 38, 1) 0%, rgba(0, 0, 0, 1) 35%, rgba(255, 0, 0, 1) 100%);
   color: #e2e2e2;
 }
 
-.tecnologiasUtilizadas{
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.footer{
+  background-color: black;
+  color: white;
 }

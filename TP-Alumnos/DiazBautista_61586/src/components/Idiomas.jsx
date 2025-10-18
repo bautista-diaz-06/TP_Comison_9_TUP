@@ -2,7 +2,9 @@ import React from 'react'
 
 const Idiomas = () => {
   return (
-    <div>Idiomas</div>
+    <div>
+      <h3>Idiomas</h3>
+    </div>
   )
 }
 
