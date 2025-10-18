@@ -33,4 +33,51 @@ body {
 .footer{
   background-color: black;
   color: white;
+  text-align: start;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.containerCards{
+  padding-top: 2rem;
+  padding-bottom: 2rem 
+}
+
+.containerCard{
+  display: flex; 
+  justify-content: center
+}
+
+.proyectoCard{
+  width: 18rem;
+  background-color: gray;
+  border-radius: 1rem;
+}
+
+.proyectoCardBody{
+  background-color: black;
+  font-family: monospace;
+  font-weight: bolder;
+}
+
+.imagenTecnologia{
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.footerLinks{
+  display: flex;
+  justify-content: start;
+  gap: 2rem;
+  font-size: 2rem;
+}
+
+.footerLinks svg{
+  color: white;
+}
+
+.footerLinks svg:hover {
+  color: rgb(95, 95, 95);
 }

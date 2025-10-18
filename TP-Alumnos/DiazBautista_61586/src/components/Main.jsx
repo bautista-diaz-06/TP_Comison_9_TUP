@@ -3,9 +3,6 @@ import Idiomas from "./Idiomas";
 import Proyectos from "./Proyectos";
 import SoftSkills from "./SoftSkills";
 
-
-Estudios;
-
 const Main = () => {
   return (
     <div className="Main">
