@@ -1,0 +1,36 @@
+.header {
+  align-items: center;                  /* Espacio entre imagen y texto */
+  background-color: #6d1818;  /* (opcional) color de fondo */
+  padding: 2rem;
+  text-align: center;
+}
+
+.imagenPersonal {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+.nombre {
+  font-size: 2rem;
+  color: #e2e2e2;
+  margin: 0;
+}
+
+.Main{
+  text-align: center;
+  background: #030026;
+background: linear-gradient(90deg, rgba(3, 0, 38, 1) 0%, rgba(0, 0, 0, 1) 35%, rgba(255, 0, 0, 1) 100%);
+  color: #e2e2e2;
+}
+
+.tecnologiasUtilizadas{
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
