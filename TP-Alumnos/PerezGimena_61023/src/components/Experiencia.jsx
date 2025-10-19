@@ -2,9 +2,10 @@ import React from "react";
 
 export default function Experiencia() {
   const experiencias = [
+    { puesto: "Indumentaria", empresa: "Masculina, Femenina", periodo: "2024-2025" },
+    { puesto: "Bar", empresa: "La Estación", periodo: "2025" },
     { puesto: "Librería", empresa: "Cosas y Cositas", periodo: "2023-2024" },
-    { puesto: "Indumentaria", empresa: "Masculina, Femenina", periodo: "2022-2023" },
-    { puesto: "Bar", empresa: "La Estación", periodo: "2021-2022" }
+    
   ];
 
   return (

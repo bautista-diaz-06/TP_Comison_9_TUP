@@ -11,6 +11,9 @@ export default function Footer() {
         <a href="https://github.com/PerezGimena" target="_blank" rel="noopener noreferrer">
           <img src="/github.png" alt="GitHub" className="icono-footer" />
         </a>
+        <a href="https://www.instagram.com/gimeeperez.ok/" target="_blank" rel="noopener noreferrer">
+          <img src="/instagram.png" alt="Instagram" className="icono-footer" />
+        </a>
       </div>
       <p>© 2025 Gimena Perez</p>
     </footer>

@@ -4,45 +4,42 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #f9f3fb; /* lila muy suave */
-
+ background: linear-gradient(to bottom, #c28fe6, #ffd6eb);
 }
 
-
-
-/* Barra de navegación */
+/* ===== Barra de navegación ===== */
 .barra-navegacion {
-    display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 2rem; /* más alto: 2rem arriba y abajo */
-  width: 100%; 
-  box-sizing: border-box;
-  background: linear-gradient(135deg, #ffc0cb77, #ffffff79, #9470db79);
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
-  min-height: 100px; /* altura mínima, opcional */
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #ffc0cb77, #ffffff79, #9470db79);
+  z-index: 10;
+  min-height: 100px;
+  width: calc(100% - 15px);
 }
-
 .marca {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: bold;
-  font-size: 1.8rem; /* más grande */
+  font-size: 1.8rem; 
   cursor: pointer;
 }
 
 .marca-nombre {
   position: relative;
-  color: #333;
+  color: #370137; 
   transition: color 0.3s;
 }
 
 .marca-nombre:hover {
-  color: #ff1493;
+  color: #8e024d;
 }
 
 .marca-nombre::after {
@@ -52,7 +49,7 @@ html, body, #root {
   height: 2px;
   left: 0;
   bottom: -4px;
-  background-color: #ff1493; /* subrayado rosita */
+  background-color: #53002c; /* subrayado rosita */
   transition: width 0.3s;
 }
 
@@ -60,8 +57,8 @@ html, body, #root {
   width: 100%;
 }
 
-.logo.marca {
-  color: #ff1493;
+.logo-marca {
+  color: #53002c;
   font-size: 1.5rem;
 }
 
@@ -78,8 +75,8 @@ html, body, #root {
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  font-size: 1.3rem; /* un poco más grande */
-  letter-spacing: 0.5px; /* mejora legibilidad */
+  font-size: 1.3rem;
+  letter-spacing: 0.5px; 
   transition: color 0.3s, border-bottom 0.3s, transform 0.3s;
   padding-bottom: 0.3rem; /* espacio para el subrayado hover */
 }
@@ -87,7 +84,7 @@ html, body, #root {
 .enlaces-navegacion a:hover {
   color: #ff1493;
   border-bottom: 2px solid #ff1493;
-  transform: scale(1.08); /* pequeño efecto hover moderno */
+  transform: scale(1.08); 
 }
 
 
@@ -98,7 +95,7 @@ html, body, #root {
   justify-content: space-between;
   width: 100vw; /* ancho exacto del viewport */
   height: 85vh; /* ocupa todo el alto visible de la pantalla */
-  padding: 0 6rem; /* solo separa el contenido interno */
+  padding: 0 6rem; 
   background: linear-gradient(135deg, #ffc0cb, #ffffff, #9470db);
   gap: 2.5rem;
   border: none;
@@ -106,12 +103,17 @@ html, body, #root {
   box-shadow: none;
   overflow: hidden;
   box-sizing: border-box;
+   margin-top: 140px; /* ajustá este valor según la altura real del nav */
    margin-top:5rem;
    
 }
 
 .header-text {
-  max-width: 60%;
+  max-width: 700px;            
+  line-height: 1.6;       
+  font-size: 1.1rem;      
+  text-align: justify;    
+  padding: 1rem;    
 }
 
 .header-name {
@@ -148,15 +150,14 @@ html, body, #root {
   transform: scale(1.1);
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
-
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .navbar {
+  .barra-navegacion {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .navbar-links {
+  .enlaces-navegacion {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
@@ -164,40 +165,28 @@ html, body, #root {
 
   .header-main {
     flex-direction: column-reverse;
-    text-align: center;
-  }
-
-  .header-text {
-    max-width: 100%;
-  }
-
-  .header-img {
-    width: 140px;
-    height: 140px;
-  }
-}
-.header-img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-/* Opcional: responsive */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column-reverse;
-    text-align: center;
+    padding: 1rem;
     gap: 1.5rem;
   }
 
   .header-text {
     max-width: 100%;
+    text-align: center;
   }
 
   .header-img {
-    width: 140px;
-    height: 140px;
+    max-width: 200px;
+    width: 50%;
+    height: auto;
   }
 }
+
+.header-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+
 
 #estudios {
   padding: 4rem 1rem;
@@ -309,7 +298,7 @@ html, body, #root {
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centramos texto e imagen */
+  align-items: center; 
   gap: 1rem;
 }
 
@@ -325,9 +314,9 @@ html, body, #root {
 }
 
 .proyecto-img {
-  width: 80%;          /* hace la imagen más grande */
-  max-width: 500px;    /* no se pase de cierto tamaño */
-  border-radius: 8px;  /* bordes suaves */
+  width: 80%;         
+  max-width: 500px;   
+  border-radius: 8px;  
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
@@ -356,12 +345,12 @@ html, body, #root {
   margin: 0;
 }
 
-/* Timeline centrado respecto al contenedor, pero línea a la izquierda del contenido */
+/* Timeline  */
 .timeline {
   position: relative;
   margin: 0 auto;
   max-width: 400px;
-  padding-left: 40px; /* espacio para la línea y los marcadores */
+  padding-left: 40px; 
 }
 
 .timeline::before {
@@ -371,7 +360,7 @@ html, body, #root {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #9470db;
+  background: #8b40a3; 
   border-radius: 2px;
 }
 
@@ -386,11 +375,11 @@ html, body, #root {
 .timeline-marker {
   width: 16px;
   height: 16px;
-  background: #9470db;
+  background: #8b40a3; 
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 3px solid #8b40a3; 
   position: absolute;
-  left: 8px;  /* centrado sobre la línea */
+  left: 8px; 
   top: 0.2rem;
 }
 
@@ -414,7 +403,6 @@ html, body, #root {
 
 /* Idiomas.css */
 
-/* Idiomas.css */
 
 #idiomas {
   padding: 2rem 1rem;
@@ -449,8 +437,8 @@ html, body, #root {
   font-size: 1.2rem;
   margin: 0.5rem 0;
   color: #000000;
-  background-color: #d2a4e1; /* fondo morado suave */
-  border-radius: 50px;         /* bordes redondeados */
+  background-color: #8b40a3; 
+  border-radius: 50px;         
    padding: 0.5rem 1rem;   
 }
 
@@ -485,23 +473,6 @@ html, body, #root {
   margin: 0;
 }
 
-.cert-item {
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  color: #333;
-  background-color: #e0d4f7; /* cuadrito morado */
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-}
-
-.cert-img {
-  width: 80%;
-  max-width: 400px;
-  margin-top: 0.5rem;
-  border-radius: 8px;
-}
 
 .cert-link, .en-curso {
   display: block;
@@ -513,22 +484,22 @@ html, body, #root {
 .cert-item {
   font-weight: 600;
   font-size: 1.2rem;
-  margin: 0.7rem 0;        /* más espacio vertical */
+  margin: 0.7rem 0;        
   color: #333;
-  background-color: #e0d4f7; /* cuadrito morado */
+  background-color: #e0d4f7; 
   border-radius: 8px;
-  padding: 0.7rem 1.2rem;    /* más padding interno */
-  display: block;           /* bloque para que no se peguen horizontalmente */
-  max-width: 400px;         /* ancho máximo para que no se extiendan mucho */
+  padding: 0.7rem 1.2rem;    
+  display: block;           
+  max-width: 400px;         
   margin-left: auto;
-  margin-right: auto;       /* centrado horizontalmente */
+  margin-right: auto;       
 }
 
 
 #footer {
   padding: 2rem 1rem;
   text-align: center;
-  background-color: #d2b9d0;
+  background-color: #8a59a4;
   color: #000000;
   margin-top: 4rem;
 }
@@ -547,10 +518,29 @@ html, body, #root {
 }
 
 .icono-footer:hover {
-  transform: scale(1.1); /* efecto al pasar el mouse */
+  transform: scale(1.1); 
 }
 
 #footer p {
   font-size: 0.9rem;
   color: #040202;
+}
+
+/* ===== Secciones generales ===== */
+section {
+  position: relative;
+  padding: 4rem 1rem 6rem 1rem; /* agregamos 6rem de padding-bottom para separar la línea */
+  margin: 0 auto 4rem auto;
+  max-width: 1200px;
+  text-align: center;
+}
+
+section::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 3px;
+  background-color: #53002c;
+  margin: 9rem auto 0 auto;  /* espacio extra entre contenido y línea */
+  border-radius: 1px;
 }

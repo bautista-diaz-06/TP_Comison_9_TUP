@@ -7,5 +7,5 @@ function App() {
   return <Home />;
 }
 
-export default App;  // <-- MUY IMPORTANTE
+export default App;  
 
