@@ -2,8 +2,8 @@ import React from 'react'
 
 function Proyectos() {
   const proyectos = [
-    { id: 1, nombre: 'Sistema de Farmacia', descripcion: 'Carrito de compras y gestión de stock', link: '#' },
-    { id: 2, nombre: 'Portfolio Personal', descripcion: 'Portfolio en React con Bootstrap', link: '#' }
+    { id: 1, nombre: 'Sistema de Farmacia', descripcion: 'Carrito de compras y gestión de stock' },
+    { id: 2, nombre: 'Portfolio Personal', descripcion: 'Portfolio en React con Bootstrap' }
   ]
 
   return (
@@ -13,7 +13,7 @@ function Proyectos() {
         <div key={p.id} className="border-start border-primary ps-3 mb-3">
           <h5>{p.nombre}</h5>
           <p>{p.descripcion}</p>
-          <a href={p.link} target="_blank" rel="noreferrer" className="btn btn-sm btn-primary">Ver proyecto</a>
+          
         </div>
       ))}
     </section>

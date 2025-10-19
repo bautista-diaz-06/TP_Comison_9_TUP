@@ -4,12 +4,14 @@ function Header() {
   return (
     <header className="text-center mb-4">
       <img
-        src="./Foto"
+        src="/Foto.jpg"
         alt="Foto personal"
         className="rounded-circle mb-3"
+         width="180"
+        height="180"  
       />
       <h1>Ruben Cabanellas</h1>
-      <p className="text-muted">Desarrollador Frontend | React & JavaScript</p>
+      <p className="text-muted">Desarrollador Frontend | React & JavaScript | Backend con C# y .Nett</p>
 
       <nav className="nav justify-content-center mt-3">
         <a href="#estudios" className="nav-link">Estudios</a>
