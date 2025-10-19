@@ -2,20 +2,29 @@ import React from "react";
 
 export default function Experiencia() {
   const experiencias = [
-    { puesto: "Librearia", empresa: "Cosas y Cositas", periodo: "2023-2024" },
-    { puesto: "Indumentaria", empresa: "Masculina, Femenina", periodo: "2022-2023" }
+    { puesto: "Librería", empresa: "Cosas y Cositas", periodo: "2023-2024" },
+    { puesto: "Indumentaria", empresa: "Masculina, Femenina", periodo: "2022-2023" },
+    { puesto: "Bar", empresa: "La Estación", periodo: "2021-2022" }
   ];
 
   return (
-    <section id="experiencia" style={{ border: "1px solid #ccc", padding: "1rem", margin: "1rem 0" }}>
-      <h2>Experiencia Laboral</h2>
-      <ul>
+    <section id="experiencia">
+      <div className="titulo">
+        <img src="/experiencia.png" alt="Experiencia" className="icono" />
+        <h2>Experiencia Laboral</h2>
+      </div>
+      <div className="timeline">
         {experiencias.map((exp, index) => (
-          <li key={index}>
-            <strong>{exp.puesto}</strong>  {exp.empresa} ({exp.periodo})
-          </li>
+          <div key={index} className="timeline-item">
+            <div className="timeline-marker"></div>
+            <div className="timeline-content">
+              <span className="puesto">{exp.puesto}</span>
+              <span className="empresa"> {exp.empresa}</span>
+              <span className="periodo"> ({exp.periodo})</span>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
