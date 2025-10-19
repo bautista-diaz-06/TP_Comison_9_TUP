@@ -11,7 +11,7 @@ function Header() {
         height="180"  
       />
       <h1>Ruben Cabanellas</h1>
-      <p className="text-muted">Desarrollador Frontend | React & JavaScript | Backend con C# y .Nett</p>
+      <p className="text-muted">Desarrollador Frontend | React & JavaScript | Backend con C# y .Net</p>
 
       <nav className="nav justify-content-center mt-3">
         <a href="#estudios" className="nav-link">Estudios</a>
