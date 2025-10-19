@@ -6,13 +6,12 @@ import SoftSkills from "./SoftSkills";
 const Main = () => {
   return (
     <div className="Main">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-      reprehenderit maiores eos! Autem, qui, iure repellendus voluptate
-      voluptatem architecto deserunt vel reprehenderit, fugiat quae cumque
-      adipisci praesentium repellat neque totam. Ipsam alias tempora possimus
-      velit reprehenderit, explicabo exercitationem dolorem. Maxime recusandae
-      veniam tenetur quidem velit sint molestiae vel fugiat ad. Obcaecati veniam
-      facilis nulla exercitationem quaerat cumque ullam deleniti quo.
+      Hola! Soy Bautista Díaz, tengo 19 años y soy de Argentina. Hace algo más
+      de un año comencé a adentrarme en el mundo del desarrollo de software. Con
+      el tiempo, y a través de la práctica y los proyectos personales, descubrí
+      que realmente me apasiona. Actualmente me desempeño como desarrollador
+      backend aún en aprendizaje, aunque también me interesa aprender frontend para mis proyectos
+      personales y, en el futuro, posiblemente convertirme en desarrollador fullstack.
       <Estudios />
       <SoftSkills />
       <Proyectos />

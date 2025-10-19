@@ -49,7 +49,9 @@ const Proyectos = () => {
           <Alert variant="secondary">
             <Alert.Heading>Aviso ⚠</Alert.Heading>
             <p>
-              Actualmente cuento con proyectos que estoy realizando pero que no tienen un frontend. Por lo tanto este es el unico proyecto completo FullStack
+              Actualmente cuento con proyectos en proceso pero que aún no tienen
+              un frontend implementado. Por lo tanto este es el unico proyecto
+              completo FullStack
             </p>
           </Alert>
         </div>

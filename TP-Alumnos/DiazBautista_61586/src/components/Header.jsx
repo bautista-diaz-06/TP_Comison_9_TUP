@@ -1,12 +1,8 @@
 const Header = () => {
   return (
     <div className="header">
-      <div className="navBar">
+      <div>
         <nav className="navBarcito">
-          {/* <li>Estudios</li>
-          <li>Soft Skills</li>
-          <li>Proyectos</li>
-          <li>Idioma</li> */}
           <a href="#estudios">ESTUDIOS</a>
           <a href="#softskills">SOFT SKILLS</a>
           <a href="#proyectos">PROYECTOS</a>
