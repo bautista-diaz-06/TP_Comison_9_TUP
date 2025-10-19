@@ -1,6 +1,10 @@
 import React from 'react'
 
 const SoftSkills = () => {
+  const softSkills = {
+    
+  }
+
   return (
     <div>
       <section id='softskills'>

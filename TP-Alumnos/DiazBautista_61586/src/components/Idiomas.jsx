@@ -5,7 +5,7 @@ const Idiomas = () => {
     <div>
       <section id='idiomas'>
       <h3>Idiomas</h3>
-      <div>Español</div>
+      <div>Español - Nativo</div>
       </section>
     </div>
   )

@@ -1,4 +1,5 @@
 import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
 
 const Proyectos = () => {
   return (
@@ -43,6 +44,14 @@ const Proyectos = () => {
               />
             </Card.Body>
           </Card>
+        </div>
+        <div className="containerAlert">
+          <Alert variant="secondary">
+            <Alert.Heading>Aviso ⚠</Alert.Heading>
+            <p>
+              Actualmente cuento con proyectos que estoy realizando pero que no tienen un frontend. Por lo tanto este es el unico proyecto completo FullStack
+            </p>
+          </Alert>
         </div>
       </section>
     </div>
