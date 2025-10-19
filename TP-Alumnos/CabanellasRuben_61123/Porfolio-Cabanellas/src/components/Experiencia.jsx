@@ -5,7 +5,7 @@ function Experiencia() {
     {
       id: 1,
       cargo: 'Desarrollador Full Stack',
-      empresa: 'Cabanellas Soluciones Informaticas',
+      empresa: 'Cabanellas Soluciones Informáticas',
       periodo: '2024 - Presente',
       tareas: ['Soporte Técnico', 'Frontend con React', 'Gestión de base de datos', 'Desarrollo de Aplicaciones a Medida']
     }

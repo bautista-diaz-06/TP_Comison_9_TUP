@@ -10,7 +10,7 @@ function Header() {
          width="180"
         height="180"  
       />
-      <h1>Ruben Cabanellas</h1>
+      <h1>Rubén Cabanellas</h1>
       <p className="text-muted">Desarrollador Frontend | React & JavaScript | Backend con C# y .Net</p>
 
       <nav className="nav justify-content-center mt-3">
