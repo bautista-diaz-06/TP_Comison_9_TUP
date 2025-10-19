@@ -56,9 +56,10 @@ background: linear-gradient(139deg,rgba(0, 6, 69, 1) 0%, rgba(13, 0, 0, 1) 60%, 
 }
 
 .proyectoCard{
-  width: 18rem;
-  background-color: rgb(141, 124, 124);
+  width: 300px;;
+  background-color: rgb(184, 202, 142);
   border-radius: 2rem;
+  overflow: hidden;
   
 }
 
@@ -144,7 +145,16 @@ section {
 }
 
 .proyectoCard:hover{
-  transform: scale(1.05);
+  transform: scale(1.01);
   transition: 1s;
   cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+
+}
+
+.imagenProyecto {
+  width: 100%;
+  object-fit: contain;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }

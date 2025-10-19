@@ -8,7 +8,7 @@ const Proyectos = () => {
         <h3>Proyectos</h3>
         <div className="containerCard">
           <Card className="proyectoCard">
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img variant="top" src="ecommercefarmacia.png" className="imagenProyecto"/>
             <Card.Body className="proyectoCardBody">
               <Card.Title>E-Commerce Farmacia</Card.Title>
               <Card.Text>Tecnologias Utilizadas:</Card.Text>
