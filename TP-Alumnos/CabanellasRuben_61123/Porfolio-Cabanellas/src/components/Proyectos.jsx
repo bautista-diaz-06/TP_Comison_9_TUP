@@ -3,7 +3,8 @@ import React from 'react'
 function Proyectos() {
   const proyectos = [
     { id: 1, nombre: 'Sistema de Farmacia', descripcion: 'Carrito de compras y gestión de stock' },
-    { id: 2, nombre: 'Portfolio Personal', descripcion: 'Portfolio en React con Bootstrap' }
+    { id: 2, nombre: 'Portfolio Personal', descripcion: 'Portfolio en React con Bootstrap' },
+    { id: 3, nombre: 'Punto de Venta', descripcion: 'Punto de venta para negocios' }
   ]
 
   return (
