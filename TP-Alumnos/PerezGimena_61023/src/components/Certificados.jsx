@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Certificados() {
   const certificados = [
-    { nombre: "Secretariado Informático", tipo: "pdf", src: "/certificados/secretariado.pdf" },
+    { nombre: "Secretariado Informático", tipo: "pdf", src: "/INI.pdf" },
     { nombre: "Introducción a la Programación", tipo: "pdf", src: "/Certificado-Introducción-a-la-Programación-EducaciónIT.pdf" },
     { nombre: "Digitalers Front End Developer", tipo: "enCurso" }
   ];

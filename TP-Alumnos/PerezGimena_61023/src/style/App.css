@@ -23,6 +23,7 @@ html, body, #root {
   min-height: 100px;
   width: calc(100% - 15px);
 }
+
 .marca {
   display: flex;
   align-items: center;
@@ -64,11 +65,11 @@ html, body, #root {
 
 .enlaces-navegacion {
   display: flex;
-  gap: 2rem; /* espacio entre links */
+  gap: 2rem; 
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap; /* permite que los links se muevan si falta espacio */
+  flex-wrap: wrap; 
 }
 
 .enlaces-navegacion a {
@@ -78,7 +79,7 @@ html, body, #root {
   font-size: 1.3rem;
   letter-spacing: 0.5px; 
   transition: color 0.3s, border-bottom 0.3s, transform 0.3s;
-  padding-bottom: 0.3rem; /* espacio para el subrayado hover */
+  padding-bottom: 0.3rem; 
 }
 
 .enlaces-navegacion a:hover {
@@ -93,8 +94,8 @@ html, body, #root {
  display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100vw; /* ancho exacto del viewport */
-  height: 85vh; /* ocupa todo el alto visible de la pantalla */
+  width: 100%; 
+  height: 85%; 
   padding: 0 6rem; 
   background: linear-gradient(135deg, #ffc0cb, #ffffff, #9470db);
   gap: 2.5rem;
@@ -103,7 +104,7 @@ html, body, #root {
   box-shadow: none;
   overflow: hidden;
   box-sizing: border-box;
-   margin-top: 140px; /* ajustá este valor según la altura real del nav */
+   margin-top: 140px; 
    margin-top:5rem;
    
 }
@@ -120,7 +121,7 @@ html, body, #root {
   font-size: 5rem;
   font-weight: bold;
   margin: 0;
-  color: #000000;
+  color: #460025;
 }
 
 .header-role {
@@ -138,8 +139,8 @@ html, body, #root {
 }
 
 .header-img {
-  width: 340px;
-  height: 340px;
+  width: clamp(150px, 25vw, 340px);
+  aspect-ratio: 1 / 1; /* mantiene ancho = alto */
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #3d012f;
@@ -232,12 +233,11 @@ html, body, #root {
   color: #333;
 }
 
-#soft-skills .titulo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+
+#soft-skills .titulo h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: bold;
+  color: #333;
 }
 
 #soft-skills .icono {
@@ -245,21 +245,48 @@ html, body, #root {
   height: 60px;
 }
 
-#soft-skills h2 {
-  font-size: 3rem;
-  margin: 0;
+.iconito {
+  width: 50px;     
+  height: 50px;
+  margin-bottom: 0.5rem;
+  object-fit: contain; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#soft-skills ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-#soft-skills li {
-  font-size: 1.5rem;
-  margin: 0.8rem 0;
-  color: #555;
+.card {
+  background-color: #ffffff; 
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  min-width: 180px;
+  text-align: center;
+  color: #000000; 
+   box-shadow: 
+    0 0 3px #ff6ec7,
+    0 0 6px #ff6ec7,
+    0 0 10px #a14ebf,
+    0 0 15px #a14ebf;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 10px #ff6ec7,
+    0 0 20px #ff6ec7,
+    0 0 40px #a14ebf,
+    0 0 50px #a14ebf,
+    0 0 60px #ff6ec7,
+    0 0 75px #a14ebf;
 }
 
 /*Proyectos*/
@@ -464,7 +491,7 @@ html, body, #root {
 #certificados h2 {
   font-size: 2.5rem;
   margin: 0 0 1rem 0;
-  color: #09040d;
+  color: #333;
 }
 
 #certificados ul {
@@ -507,7 +534,7 @@ html, body, #root {
 .footer-iconos {
   display: flex;
   justify-content: center;
-  gap: 2rem; /* separación entre los iconos */
+  gap: 2rem; 
   margin-bottom: 1rem;
 }
 
@@ -529,7 +556,7 @@ html, body, #root {
 /* ===== Secciones generales ===== */
 section {
   position: relative;
-  padding: 4rem 1rem 6rem 1rem; /* agregamos 6rem de padding-bottom para separar la línea */
+  padding: 4rem 1rem 6rem 1rem; 
   margin: 0 auto 4rem auto;
   max-width: 1200px;
   text-align: center;

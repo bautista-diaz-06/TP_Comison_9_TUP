@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <Main />   {/* aquí se renderiza Main */}
+      <Main />  
       <Footer />
     </div>
   );
