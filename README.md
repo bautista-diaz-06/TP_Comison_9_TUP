@@ -1,119 +1,16 @@
-📌 TP — Semana 1
+# React + Vite
 
-Tecnicatura Universitaria en Programación — Comisión 9
-Profesor: Chocobar Matías
-Fecha límite: Viernes 24 — 23:59 hs
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-🎯 Objetivo de la Semana 1
+Currently, two official plugins are available:
 
-Iniciar la construcción del proyecto React dejando:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Arquitectura de carpetas completa y creada en /src
+## React Compiler
 
-Componentes base iniciados (NO vacíos)
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Login SIMULADO con localStorage
+## Expanding the ESLint configuration
 
-Dashboard inicial con datos simulados usando useState + useEffect
-
-React Bootstrap instalado y aplicado en tablas/forms/cards
-
-Router preparado (sin proteger aún)
-
-Flujo GIT colaborativo aplicado correctamente
-
-📂 Estructura mínima obligatoria
-src/
-  components/
-  pages/
-  dashboard/
-  layout/
-  router/
-    RouterProtect.jsx      // archivo creado, sin lógica aún
-  store/
-  utils/
-  constants/
-  endpoints/
-
-
-Ninguna carpeta debe estar vacía — todas deben contener al menos 1 archivo real.
-
-🧩 Requerimientos técnicos de la semana
-
-Proyecto creado con Vite + React
-
-React Bootstrap instalado y utilizado
-
-Login simulado (sin backend) persistiendo sesión en localStorage
-
-Dashboard inicial con datos fake utilizando useState + useEffect
-
-Router configurado e instalado (react-router-dom)
-
-Comienzo de maquetación real de formularios/tablas (no placeholders vacíos)
-
-🧑‍💻 Flujo GIT — Reglas obligatorias
-
-LÍDER
-
-Hace FORK del repo del profesor
-
-Crea rama dev (desarrollo)
-
-Integra las ramas de los integrantes en dev
-
-Merge final dev → main
-
-Solo el líder realiza Pull Request al profesor
-
-INTEGRANTES
-
-Clonan EL FORK del líder (no el repo del profesor)
-
-Crean su propia rama Nombre_Legajo
-
-Trabajan solo en su rama
-
-Push a su rama y avisan al líder
-
-Integrante sin aportes → desaprobado individual, aunque el grupo apruebe.
-
-📘 Contenido obligatorio en README del grupo
-
-Integrantes y roles
-
-Justificación de cantidad de pages planificadas
-
-Lista de componentes reutilizables previstos
-
-Roadmap de desarrollo
-
-Explicación del flujo GIT aplicado
-
-Guía para actualizar el fork del líder (si ya existía)
-
-📬 Entrega
-
-Solo el líder realiza Pull Request al repo del profesor
-
-Título del PR: TP Semana 1 — Grupo X — Comisión 9
-
-Fecha límite: Viernes 24 — 23:59 hs
-
-✅ Checklist antes de enviar
-
- Estructura de carpetas creada y con contenido
-
- Login simulado funcionando con localStorage
-
- Dashboard con useState + useEffect y datos simulados
-
- React Bootstrap aplicado
-
- Router configurado y RouterProtect creado
-
- README del grupo completado dentro del repo
-
- dev mergeado a main sin errores
-
- PR enviado solo por el líder
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
