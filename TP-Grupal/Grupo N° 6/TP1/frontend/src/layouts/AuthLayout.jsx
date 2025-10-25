@@ -1,10 +1,11 @@
-import { useState } from "react";
+import "../CSS/AuthLayout.css";
+import "../CSS/AuthForms.css";
 import LoginForm from "../components/Auth/LoginForm";
 import RegisterForm from "../components/Auth/RegisterForm";
-import "../CSS/AuthLayout.css";
+import { useAuthUIStore } from "../store/AuthUIStore";
 
 const AuthLayout = () => {
-  const [formMode, setFormMode] = useState("login");
+  const { formMode, setFormMode } = useAuthUIStore();
 
   return (
     <div className="auth-container">
