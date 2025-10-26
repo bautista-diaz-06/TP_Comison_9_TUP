@@ -49,3 +49,14 @@ body{
 .tabla{
   margin-top: 40px;
 }
+
+.navbar ul li a {
+  text-decoration: none;
+  color: inherit;        /* toma color del li o padre */
+  transition: color 0.75s;
+}
+
+.navbar ul li a:hover {
+  color: rgb(0, 0, 0);  /* color al pasar el mouse */
+  cursor: pointer;
+}

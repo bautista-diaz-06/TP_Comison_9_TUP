@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const getName = localStorage.getItem("nombre");
@@ -14,11 +15,9 @@ const Header = () => {
 
       <nav className="navbar">
         <ul>
-          <li>Eventos</li>
+          <li><Link to="/tabla-eventos">Eventos</Link></li>
           <li>Dashboards</li>
-          <li>Artistas</li>
-          <li>?</li>
-          <li>?</li>
+          <li><Link to="/tabla-artistas">Artistas</Link></li>
         </ul>
       </nav>
 
