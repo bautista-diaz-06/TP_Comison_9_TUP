@@ -12,7 +12,7 @@ const Header = () => {
 
             <div className="boxHeadNavBar">
                 <h2 >
-                    ADMIN
+                    ADMINN
                 </h2>
             </div>
 
