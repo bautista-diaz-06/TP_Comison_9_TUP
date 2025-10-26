@@ -1,45 +1,40 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaUser, FaDumbbell, FaCalendarCheck, FaHistory, FaBars } from "react-icons/fa";
+import { FaHome,FaUser, FaDumbbell, FaCalendarCheck, FaHistory, FaBars } from "react-icons/fa";
 import "./Navbar.css";
 
-function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+function SidebarNavbar() {
+  const [collapsed, setCollapsed] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleSidebar = () => setCollapsed(!collapsed);
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <NavLink to="/" className="brand-link">Gimnasio</NavLink>
-        <button className="menu-toggle" onClick={toggleMenu}>
+    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+       <div className="top-section">
+        <h1 className="gym-title">Gimnasio</h1>
+        <button className="toggle-btn" onClick={toggleSidebar}>
           <FaBars />
         </button>
       </div>
-      <ul className={`navbar-nav ${menuOpen ? "open" : ""}`}>
-        <li className="nav-item">
-          <NavLink to="/socios" className="nav-link">
-            <FaUser className="icon" /> Socios
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/actividades" className="nav-link">
-            <FaDumbbell className="icon" /> Actividades
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/reservas" className="nav-link">
-            <FaCalendarCheck className="icon" /> Reservas
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/historial" className="nav-link">
-            <FaHistory className="icon" /> Historial
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
+      <nav className="nav-menu">
+         <NavLink to="/" className="nav-link">
+          <FaHome className="nav-icon" /> <span className="link-text">Home</span>
+        </NavLink>
+        <NavLink to="/socios" className="nav-link">
+          <FaUser className="nav-icon" /> <span className="link-text">Socios</span>
+        </NavLink>
+        <NavLink to="/actividades" className="nav-link">
+          <FaDumbbell className="nav-icon" /> <span className="link-text">Actividades</span>
+        </NavLink>
+        <NavLink to="/reservas" className="nav-link">
+          <FaCalendarCheck className="nav-icon" /> <span className="link-text">Reservas</span>
+        </NavLink>
+        <NavLink to="/historial" className="nav-link">
+          <FaHistory className="nav-icon" /> <span className="link-text">Historial</span>
+        </NavLink>
+      </nav>
+    </div>
   );
 }
 
-export default Navbar;
+export default SidebarNavbar;

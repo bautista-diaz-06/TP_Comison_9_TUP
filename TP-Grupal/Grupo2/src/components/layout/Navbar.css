@@ -1,39 +1,36 @@
-/* Navbar general */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  background: linear-gradient(90deg, #1e1e2f, #28293d);
-  color: #fff;
-  height: 60px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  position: sticky;
+/* Sidebar general */
+.sidebar {
+  position: fixed;
+  left: 0;
   top: 0;
-  z-index: 100;
-}
-
-/* Marca / logo */
-.navbar-brand {
+  height: 100vh;
+  width: 250px;
+  background: linear-gradient(180deg, #1e3c72, #2a5298);
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
 }
 
-.brand-link {
-  font-size: 1.7rem;
+/* Colapsado */
+.sidebar.collapsed {
+  width: 80px;
+}
+.gym-title {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #fff;
-  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
 }
 
-.brand-link:hover {
-  color: #ff7f50;
-}
-
-/* Toggle menú (mobile) */
-.menu-toggle {
+/* Asegúrate de que el título se oculte cuando la barra lateral esté colapsada */
+.sidebar.collapsed .gym-title {
   display: none;
+}
+.toggle-btn {
   background: none;
   border: none;
   color: #fff;
@@ -41,63 +38,63 @@
   cursor: pointer;
 }
 
-/* Lista de navegación */
-.navbar-nav {
+/* Menú de navegación */
+.nav-menu {
   display: flex;
-  list-style: none;
-  gap: 1.5rem;
-  transition: max-height 0.3s ease;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
-.nav-item .nav-link {
+.nav-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  padding: 15px 20px;
+  color: #fff;
   text-decoration: none;
-  color: #fff;
+  transition: background 0.3s ease, transform 0.2s ease;
   font-weight: 500;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
 }
 
-.nav-item .nav-link:hover {
-  background-color: #ff7f50;
-  color: #fff;
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
 }
 
-.nav-item .nav-link.active {
-  background-color: #ff7f50;
+.nav-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  min-width: 24px;
 }
 
-/* Iconos */
-.icon {
-  font-size: 1.2rem;
+/* Ocultar texto si colapsado */
+.sidebar.collapsed .link-text {
+  display: none;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    overflow: hidden;
-    max-height: 0;
+/* Responsive: mobile */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
     width: 100%;
-    gap: 0;
+    height: 70px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
   }
 
-  .navbar-nav.open {
-    max-height: 500px; /* Ajusta según cantidad de items */
-    background-color: #1e1e2f;
-    margin-top: 0.5rem;
-    border-radius: 6px;
+  .nav-menu {
+    flex-direction: row;
+    margin-top: 0;
   }
 
-  .nav-item .nav-link {
+  .nav-link {
+    padding: 0 10px;
+  }
+
+  .sidebar.collapsed {
+    height: 70px;
     width: 100%;
-    padding: 0.75rem 1rem;
   }
 }
+
