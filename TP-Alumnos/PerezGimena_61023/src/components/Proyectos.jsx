@@ -5,7 +5,7 @@ export default function Proyectos() {
     {
       nombre: "Sitio Web - Veterinaria",
       descripcion: "Sitio Web con Ecommerce y gestión de turnos y pacientes de una veterinaria.",
-      imgEstado: "/veterinaria.jpg" // imagen grande del proyecto
+      imgEstado: "/veterinaria.jpg" 
     }
   ];
   
