@@ -1,0 +1,24 @@
+.footer {
+  background: #1e1e1e; /* fondo oscuro elegante */
+  color: #f0f0f0; /* texto claro */
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 3px solid #ff4081; /* línea superior llamativa */
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Efecto sutil al pasar el mouse */
+.footer p:hover {
+  color: #ff4081;
+  transition: color 0.3s ease-in-out;
+}

@@ -1,0 +1,103 @@
+/* Navbar general */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background: linear-gradient(90deg, #1e1e2f, #28293d);
+  color: #fff;
+  height: 60px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Marca / logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-link {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand-link:hover {
+  color: #ff7f50;
+}
+
+/* Toggle menú (mobile) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Lista de navegación */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  transition: max-height 0.3s ease;
+}
+
+.nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.nav-item .nav-link.active {
+  background-color: #ff7f50;
+}
+
+/* Iconos */
+.icon {
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    width: 100%;
+    gap: 0;
+  }
+
+  .navbar-nav.open {
+    max-height: 500px; /* Ajusta según cantidad de items */
+    background-color: #1e1e2f;
+    margin-top: 0.5rem;
+    border-radius: 6px;
+  }
+
+  .nav-item .nav-link {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}

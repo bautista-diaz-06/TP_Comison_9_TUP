@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import HomePage from "./pages/Home";
+import SociosPage from "./components/Socios";
+import ActividadesPage from "./components/Actividades";
+import ReservasPage from "./components/Reservas";
+import HistorialPage from "./components/Historial";
+import useLocalStorage from "./hooks/useLocalStorage";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Estados globales persistentes con useLocalStorage
+  const [socios, setSocios] = useLocalStorage("gym_socios", [
+  { id: 1, nombre: "Ana", apellido: "Perez", email: "ana@mail.com", rol: "socio" }
+]);
 
+  const [actividades, setActividades] = useLocalStorage("gym_actividades", []);
+  const [reservas, setReservas] = useLocalStorage("gym_reservas", []);
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />{" "}
+          <Route
+            path="/socios"
+            element={<SociosPage socios={socios} setSocios={setSocios} />}
+          />{" "}
+          <Route
+            path="/actividades"
+            element={
+              <ActividadesPage
+                actividades={actividades}
+                setActividades={setActividades}
+              />
+            }
+          />{" "}
+          <Route
+            path="/reservas"
+            element={
+              <ReservasPage
+                socios={socios}
+                actividades={actividades}
+                reservas={reservas}
+                setReservas={setReservas}
+              />
+            }
+          />{" "}
+          <Route
+            path="/historial"
+            element={
+              <HistorialPage
+                socios={socios}
+                actividades={actividades}
+                reservas={reservas}
+              />
+            }
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </Router>
+  );
 }
 
-export default App
+export default App;
