@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import Tarjeta from '../components/Tarjeta';
-import InputPersonalizado from '../components/InputPersonalizado';
-import BotonPersonalizado from '../components/BotonPersonalizado';
+import '../Styles/Medicos.css';
 
 export default function Medicos() {
   const [nombre, setNombre] = useState('');
   const [especialidad, setEspecialidad] = useState('');
 
-  // Datos simulados
   const medicos = [
     { nombre: 'Dr. Martínez', especialidad: 'Cardiología' },
     { nombre: 'Dra. López', especialidad: 'Pediatría' },
@@ -18,23 +16,37 @@ export default function Medicos() {
     alert(`Médico agregado: ${nombre} (${especialidad})`);
     setNombre('');
     setEspecialidad('');
-  }
+  };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Médicos</h2>
+    <div className="medicos-container">
+      <h2>Médicos</h2>
 
-      {/* Formulario visual */}
-      <form onSubmit={handleAgregar} className="mb-6 bg-white p-4 rounded shadow w-96">
-        <InputPersonalizado label="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-        <InputPersonalizado label="Especialidad" value={especialidad} onChange={(e) => setEspecialidad(e.target.value)} />
-        <BotonPersonalizado>Agregar Médico</BotonPersonalizado>
+      <form onSubmit={handleAgregar} className="medicos-form">
+        <label>Nombre</label>
+        <input
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+
+        <label>Especialidad</label>
+        <input
+          type="text"
+          value={especialidad}
+          onChange={(e) => setEspecialidad(e.target.value)}
+        />
+
+        <button type="submit">Agregar Médico</button>
       </form>
 
-      {/* Tarjetas de médicos */}
-      <div>
+      <div className="medicos-tarjetas">
         {medicos.map((m, i) => (
-          <Tarjeta key={i} titulo={m.nombre} contenido={`Especialidad: ${m.especialidad}`} />
+          <Tarjeta
+            key={i}
+            titulo={m.nombre}
+            contenido={`Especialidad: ${m.especialidad}`}
+          />
         ))}
       </div>
     </div>

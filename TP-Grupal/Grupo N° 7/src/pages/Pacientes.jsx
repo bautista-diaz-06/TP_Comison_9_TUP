@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import Tarjeta from '../components/Tarjeta';
-import InputPersonalizado from '../components/InputPersonalizado';
-import BotonPersonalizado from '../components/BotonPersonalizado';
+import '../Styles/Pacientes.css';
 
 export default function Pacientes() {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
 
-  // Datos simulados
   const pacientes = [
     { nombre: 'Ana Pérez', email: 'ana@mail.com' },
     { nombre: 'Juan Gómez', email: 'juan@mail.com' },
@@ -18,23 +16,37 @@ export default function Pacientes() {
     alert(`Paciente agregado: ${nombre} (${email})`);
     setNombre('');
     setEmail('');
-  }
+  };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Pacientes</h2>
+    <div className="pacientes-container">
+      <h2>Pacientes</h2>
 
-      {/* Formulario visual */}
-      <form onSubmit={handleAgregar} className="mb-6 bg-white p-4 rounded shadow w-96">
-        <InputPersonalizado label="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-        <InputPersonalizado label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <BotonPersonalizado>Agregar Paciente</BotonPersonalizado>
+      <form onSubmit={handleAgregar} className="pacientes-form">
+        <label>Nombre</label>
+        <input
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+
+        <label>Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button type="submit">Agregar Paciente</button>
       </form>
 
-      {/* Tarjetas de pacientes */}
-      <div>
+      <div className="pacientes-tarjetas">
         {pacientes.map((p, i) => (
-          <Tarjeta key={i} titulo={p.nombre} contenido={`Email: ${p.email}`} />
+          <Tarjeta
+            key={i}
+            titulo={p.nombre}
+            contenido={`Email: ${p.email}`}
+          />
         ))}
       </div>
     </div>

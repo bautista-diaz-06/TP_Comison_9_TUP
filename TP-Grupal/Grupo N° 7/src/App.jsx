@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Pacientes from './pages/Pacientes';
 import Medicos from './pages/Medicos';
+import './Styles/app.css';
 
 function App() {
   return (
