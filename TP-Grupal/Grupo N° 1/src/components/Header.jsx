@@ -16,8 +16,9 @@ const Header = () => {
       <nav className="navbar">
         <ul>
           <li><Link to="/tabla-eventos">Eventos</Link></li>
-          <li>Dashboards</li>
+          <li><Link to="/dashboard"> Dashboards</Link></li>
           <li><Link to="/tabla-artistas">Artistas</Link></li>
+          <li><Link to="/tabla-asistentes">Asistentes</Link></li>
         </ul>
       </nav>
 
