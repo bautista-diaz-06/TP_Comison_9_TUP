@@ -1,16 +1,29 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../Styles/Login.css';
 
-export default function Login() {
+export default function Login({ setLogueado }) {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Usuario: ${usuario}\nContraseña: ${password}`);
-    navigate('/dashboard');
+
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    const usuarioEncontrado = usuarios.find(
+      (u) => u.usuario === usuario && u.password === password
+    );
+
+    if (usuarioEncontrado) {
+      localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+      localStorage.setItem('logueado', true);
+      setLogueado(true);
+      navigate('/dashboard');
+    } else {
+      alert('Usuario o contraseña incorrectos');
+    }
   };
 
   return (
@@ -33,6 +46,13 @@ export default function Login() {
         />
 
         <button type="submit">Ingresar</button>
+
+        <p style={{ marginTop: '1rem' }}>
+          ¿No tenés cuenta?{' '}
+          <Link to="/registro" style={{ color: '#721f4d', fontWeight: 600 }}>
+            Registrate aquí
+          </Link>
+        </p>
       </form>
     </div>
   );
