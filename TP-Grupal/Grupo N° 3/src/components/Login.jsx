@@ -2,18 +2,18 @@ import { useState } from 'react';
 
 function Login() {
 const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+const [contraseña, setContraseña] = useState('');
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    const loginData = {
+    const login = {
         email,
-        password,
+        contraseña,
         timestamp: new Date().toISOString()
     };
-    localStorage.setItem('loginData', JSON.stringify(loginData));
+    localStorage.setItem('Login', JSON.stringify(login));
     alert('Te has logueado correctamente');
-    console.log('Login guardado:', loginData);
+    console.log('Login guardado:', login);
 };
 
 return (
@@ -39,8 +39,8 @@ return (
                                     <input 
                                         type="password" 
                                         className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={contraseña}
+                                        onChange={(e) => setContraseña(e.target.value)}
                                         required
                                     />
                                 </div>

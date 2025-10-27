@@ -1,21 +1,21 @@
 import { useState } from 'react';
 
 function Register() {
-  const [username, setUsername] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [contraseña, setContraseña] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const registerData = {
-      username,
+    const register = {
+      usuario,
       email,
-      password,
+      contraseña,
       timestamp: new Date().toISOString()
     };
-    localStorage.setItem('registerData', JSON.stringify(registerData));
+    localStorage.setItem('registerData', JSON.stringify(register));
     alert('Te has registrado correctamente');
-    console.log('Registro guardado:', registerData);
+    console.log('Registro guardado:', register);
   };
 
   return (
@@ -31,8 +31,8 @@ function Register() {
                   <input 
                     type="text" 
                     className="form-control"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)}
                     required
                   />
                 </div>
@@ -51,8 +51,8 @@ function Register() {
                   <input 
                     type="password" 
                     className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={contraseña}
+                    onChange={(e) => setContraseña(e.target.value)}
                     required
                   />
                 </div>
