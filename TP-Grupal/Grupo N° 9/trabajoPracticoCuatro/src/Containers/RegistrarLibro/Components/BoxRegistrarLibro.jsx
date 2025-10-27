@@ -22,17 +22,24 @@ const BoxRegistrarLibro = () => {
                 <input
                     type="text"
                     name="editorial"
-                    placeholder="Cantidad"
+                    placeholder="Editorial"
                     className="registroInput"
                 />
 
                
-                <input
-                    type="text"
-                    name="descripcion"
-                    placeholder="Descripcion"
-                    className="registroInput"
-                />
+            <input
+                type="text"
+                name="descripcion"
+                placeholder="Descripcion"
+                className="registroInput"
+            />
+            
+            <input
+                type="number"
+                name="Cantidad"
+                placeholder="Cantidad"
+                className="registroInput"
+            />
 
                 <button type="submit" className="registroButton">
                     Registrar
