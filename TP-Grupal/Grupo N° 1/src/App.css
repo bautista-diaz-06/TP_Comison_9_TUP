@@ -60,3 +60,13 @@ body{
   color: rgb(0, 0, 0);  /* color al pasar el mouse */
   cursor: pointer;
 }
+
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f8f9fa; /* gris claro de fondo */
+  margin-top: 60px;
+}
