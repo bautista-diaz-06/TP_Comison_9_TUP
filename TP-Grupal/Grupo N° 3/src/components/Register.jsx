@@ -13,7 +13,7 @@ function Register() {
       contraseña,
       timestamp: new Date().toISOString()
     };
-    localStorage.setItem('registerData', JSON.stringify(register));
+    localStorage.setItem('register', JSON.stringify(register));
     alert('Te has registrado correctamente');
     console.log('Registro guardado:', register);
   };
