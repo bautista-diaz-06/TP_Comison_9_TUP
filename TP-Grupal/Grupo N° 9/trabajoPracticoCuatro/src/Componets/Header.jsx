@@ -19,6 +19,13 @@ const Header = () => {
             <div className="boxItems">
 
                 <div className="boxItemNavBar">
+                    <a href="/inicio" className="boxItemNavBar">
+
+
+                        <span> Inicio </span>
+                    </a>
+                </div>
+                <div className="boxItemNavBar">
                     <a href="/alumnos" className="boxItemNavBar">
                         <div className="boxItemNavBarImg">
                             <img src={AlumnosIcono} alt="" style={{ width: "35px", }} />
