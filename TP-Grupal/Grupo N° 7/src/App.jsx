@@ -6,6 +6,7 @@ import Registro from './pages/Registro';
 import Dashboard from './pages/Dashboard';
 import Pacientes from './pages/Pacientes';
 import Medicos from './pages/Medicos';
+import Turnos from './pages/Turnos'; // importa la página
 import './Styles/app.css';
 
 function App() {
@@ -46,6 +47,12 @@ function App() {
           path="*"
           element={<Navigate to={logueado ? "/dashboard" : "/login"} />}
         />
+
+        <Route
+  path="/turnos"
+  element={logueado ? <Turnos /> : <Navigate to="/login" />}
+/>
+
       </Routes>
     </Router>
   );
