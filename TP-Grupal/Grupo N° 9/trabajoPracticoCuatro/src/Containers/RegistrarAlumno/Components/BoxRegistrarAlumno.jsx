@@ -1,7 +1,7 @@
 import "../../../Styles/RegistrarAlumnoStyles.css"
 
 const BoxRegistrarAlumno = () => {
-    return(
+    return (
         <div className="registroContainer">
             <h2>Registro de Alumnos</h2>
 
@@ -10,6 +10,13 @@ const BoxRegistrarAlumno = () => {
                     type="text"
                     name="nombre"
                     placeholder="Nombre completo"
+                    className="registroInput"
+                />
+
+                <input
+                    type="number"
+                    name="dni"
+                    placeholder="DNI"
                     className="registroInput"
                 />
 
@@ -24,13 +31,6 @@ const BoxRegistrarAlumno = () => {
                     type="text"
                     name="telefono"
                     placeholder="Teléfono"
-                    className="registroInput"
-                />
-
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
                     className="registroInput"
                 />
 
