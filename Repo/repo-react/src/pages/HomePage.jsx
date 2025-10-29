@@ -1,6 +1,6 @@
-import Header from "../components/ejemplo-Portfolio/Header"
+import Header from "../layouts/Header"
 import {Main} from "../components/ejemplo-Portfolio/Main"
-import Footer from "../components/ejemplo-Portfolio/Footer"
+import Footer from "../layouts/Footer"
 
 
 const HomePage = () => {

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { Button } from 'react-bootstrap';
-import ModalContacto from './ModalContacto';
-import '../../styles/Footer.css'
+import ModalContacto from '../components/ejemplo-Portfolio/ModalContacto';
+import '../../src/styles/Footer.css'
 import Swal from 'sweetalert2';//importando a libreria de añertas 
 import withReactContent from 'sweetalert2-react-content'; // estamos importando la parte de react de la libreria
 
