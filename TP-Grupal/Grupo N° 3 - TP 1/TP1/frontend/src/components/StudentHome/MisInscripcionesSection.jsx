@@ -1,14 +1,31 @@
 import { useEffect, useState } from "react";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
 const MisInscripcionesSection = () => {
   const [misInscripciones, setMisInscripciones] = useState([]);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    const inscripciones =
-      JSON.parse(localStorage.getItem("inscripciones")) || [];
-    const filtradas = inscripciones.filter((i) => i.userId === userId);
-    setMisInscripciones(filtradas);
+    const load = async () => {
+      const userId = localStorage.getItem("userId");
+      try {
+        const params = new URLSearchParams({ userId });
+        const res = await fetch(`${API_BASE}/inscripciones?${params.toString()}`);
+        if (!res.ok) throw new Error("Error al obtener inscripciones");
+        const data = await res.json();
+        setMisInscripciones(data);
+      } catch (err) {
+        console.error("MisInscripciones load error:", err);
+        try {
+          alert(
+            "No se pudieron obtener las inscripciones desde la API. Asegúrate de iniciar el servidor de la API."
+          );
+        } catch {}
+        // No usar localStorage como respaldo: mostrar lista vacía
+        setMisInscripciones([]);
+      }
+    };
+    load();
   }, []);
 
   return (

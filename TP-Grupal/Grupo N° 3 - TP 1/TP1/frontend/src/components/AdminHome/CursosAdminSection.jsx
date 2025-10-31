@@ -1,27 +1,71 @@
 import { useEffect, useState } from "react";
 import { useAdminUIStore } from "../../store/AdminUIStore";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
 const CursosSection = () => {
   const { mode } = useAdminUIStore();
   const [cursos, setCursos] = useState([]);
 
-  // 🔹 Cargar cursos iniciales
+  // 🔹 Cargar cursos iniciales (desde API con fallback local)
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("cursos")) || [];
-    setCursos(stored);
+    const load = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/cursos`);
+        if (!res.ok) throw new Error("No hay cursos");
+        const data = await res.json();
+        setCursos(data);
+      } catch {
+        console.error("Error al cargar cursos desde API");
+        alert(
+          "No se pudieron cargar los cursos desde la API. Asegúrate de iniciar el servidor de la API."
+        );
+        setCursos([]);
+      }
+    };
+    load();
   }, []);
 
-  // 🔹 Guardar y refrescar
-  const guardarCursos = (data) => {
-    localStorage.setItem("cursos", JSON.stringify(data));
-    setCursos(data);
+  // 🔹 Guardar y refrescar (local + API)
+  const guardarCursos = async (data) => {
+    // Intentar persistir cada curso en la API
+    try {
+      for (let i = 0; i < data.length; i++) {
+        const c = data[i];
+        if (c.id) {
+          const res = await fetch(`${API_BASE}/cursos/${c.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(c),
+          });
+          if (!res.ok) throw new Error("Error al actualizar curso en API");
+        } else {
+          const res = await fetch(`${API_BASE}/cursos`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(c),
+          });
+          if (!res.ok) throw new Error("Error al crear curso en API");
+          const saved = await res.json();
+          data[i] = saved; // actualizar id asignado
+        }
+      }
+      // si todo ok, actualizar estado
+      setCursos(data);
+    } catch (err) {
+      console.warn("No se pudo sincronizar cursos con API:", err.message);
+      try {
+        alert("No se pudieron sincronizar los cursos con la API: " + (err?.message || ""));
+      } catch {}
+
+    }
   };
 
   // ==============================
   // 🧩 ACCIONES POR MODO
   // ==============================
 
-  const handleRowClick = (curso) => {
+  const handleRowClick = async (curso) => {
     switch (mode) {
       case "ver":
         alert(
@@ -53,36 +97,57 @@ const CursosSection = () => {
         const userId = localStorage.getItem("userId");
         if (!userId) return alert("⚠️ Usuario no identificado.");
 
-        const inscripciones =
-          JSON.parse(localStorage.getItem("inscripciones")) || [];
+        try {
+          // check server-side duplicates
+          const q = new URLSearchParams({ userId, cursoId: curso.id });
+          const chk = await fetch(`${API_BASE}/inscripciones?${q.toString()}`);
+          const existing = await chk.json();
+          if (existing && existing.length > 0) return alert("⚠️ Ya estás inscripto en este curso.");
+          if (curso.cupo <= 0) return alert("❌ No hay cupos disponibles.");
 
-        // Evitar duplicados
-        const yaInscripto = inscripciones.some(
-          (i) => i.userId === userId && i.cursoId === curso.id
-        );
-        if (yaInscripto) return alert("⚠️ Ya estás inscripto en este curso.");
-        if (curso.cupo <= 0) return alert("❌ No hay cupos disponibles.");
+          const nuevaInscripcion = {
+            userId,
+            cursoId: curso.id,
+            cursoNombre: curso.nombre,
+            categoria: curso.categoria,
+            duracion: curso.duracion,
+            estado: "Activo",
+            fecha: new Date().toLocaleDateString(),
+          };
 
-        const nuevaInscripcion = {
-          userId,
-          cursoId: curso.id,
-          cursoNombre: curso.nombre,
-          categoria: curso.categoria,
-          duracion: curso.duracion,
-          estado: "Activo",
-          fecha: new Date().toLocaleDateString(),
-        };
+          const res = await fetch(`${API_BASE}/inscripciones`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevaInscripcion),
+          });
+          if (!res.ok) throw new Error("Error al crear inscripción");
+          const saved = await res.json();
 
-        // Guardar inscripción y actualizar cupo
-        inscripciones.push(nuevaInscripcion);
-        localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
+          // decrement cupo on server
+          await fetch(`${API_BASE}/cursos/${curso.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cupo: curso.cupo - 1 }),
+          });
 
-        const actualizado = cursos.map((c) =>
-          c.id === curso.id ? { ...c, cupo: c.cupo - 1 } : c
-        );
-        guardarCursos(actualizado);
+          // decrement cupo on server
+          await fetch(`${API_BASE}/cursos/${curso.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cupo: curso.cupo - 1 }),
+          });
 
-        alert(`✅ Inscripción exitosa en "${curso.nombre}"`);
+          // actualizar estado local basándose en la respuesta del servidor
+          const actualizado = cursos.map((c) =>
+            c.id === curso.id ? { ...c, cupo: c.cupo - 1 } : c
+          );
+          setCursos(actualizado);
+
+          alert(`✅ Inscripción exitosa en "${curso.nombre}"`);
+        } catch (err) {
+          console.error(err);
+          alert(err.message || "Error al inscribir");
+        }
         break;
       }
 
@@ -92,26 +157,42 @@ const CursosSection = () => {
   };
 
   const handleAdd = () => {
-    const nombre = prompt("Nombre del curso:");
-    if (!nombre) return;
+    (async () => {
+      const nombre = prompt("Nombre del curso:");
+      if (!nombre) return;
 
-    const categoria = prompt("Categoría del curso:") || "General";
-    const duracion = prompt("Duración en meses:") || "Sin especificar";
-    const cupo = parseInt(prompt("Cupo inicial:"), 10) || 10;
+      const categoria = prompt("Categoría del curso:") || "General";
+      const duracion = prompt("Duración en meses:") || "Sin especificar";
+      const cupo = parseInt(prompt("Cupo inicial:"), 10) || 10;
 
-    const nuevo = [
-      ...cursos,
-      {
-        id: Date.now(),
+      const payload = {
         nombre,
         categoria,
         duracion: `${duracion} meses`,
         cupo,
-      },
-    ];
+      };
 
-    guardarCursos(nuevo);
-    alert(`✅ Curso "${nombre}" creado correctamente.`);
+  // intentar persistir en el servidor primero; si falla, usar almacenamiento local como respaldo
+      try {
+        const res = await fetch(`${API_BASE}/cursos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Error al crear curso en API");
+        const saved = await res.json();
+        const nuevo = [...cursos, saved];
+        setCursos(nuevo);
+        alert(`✅ Curso "${saved.nombre}" creado correctamente (guardado en DB).`);
+      } catch (err) {
+        console.error("Error al crear curso en API:", err);
+        alert(
+          "No se pudo crear el curso en la API: " + (err?.message || "")
+        );
+        // No crear localmente: la persistencia debe ser en la API
+        return;
+      }
+    })();
   };
 
   // ==============================
