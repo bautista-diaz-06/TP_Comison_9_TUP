@@ -1,0 +1,18 @@
+{
+  "Alumnos": [
+    {
+      "id": 1,
+      "nombre": "Bautista Díaz",
+      "dni": 47355314,
+      "edad": 19,
+      "fecha": "19-05-2006"
+    },
+    {
+      "id": 2,
+      "nombre": "Facundo Salvatierra",
+      "dni": 43548566,
+      "edad": 28,
+      "fecha": "12-01-1997"
+    }
+  ]
+}
