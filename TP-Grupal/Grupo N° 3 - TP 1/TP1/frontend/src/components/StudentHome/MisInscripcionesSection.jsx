@@ -21,7 +21,6 @@ const MisInscripcionesSection = () => {
             "No se pudieron obtener las inscripciones desde la API. Asegúrate de iniciar el servidor de la API."
           );
         } catch {}
-        // No usar localStorage como respaldo: mostrar lista vacía
         setMisInscripciones([]);
       }
     };
