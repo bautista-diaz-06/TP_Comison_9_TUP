@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../CSS/AuthLayout.css";
 import useLogin from "../../hooks/LoginHook";
+import logo from "../../../img/logo1.png"
 const LoginForm = () => {
   const [Email, setEmail] = useState("");
   const [Pass, setPass] = useState("");
@@ -8,12 +9,16 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    login(Email, Pass);
+    const res = await login(Email, Pass);
+    if (!res.ok) {
+      alert(res.message || "Error al iniciar sesión");
+    }
   };
 
   return (
     <form onSubmit={handleLogin} className="formauth">
-      <img src="/XLogo.png" alt="Academia Logo" />
+      {/* use the new SVG logo placed in public/ */}
+      <img src={logo} alt="Academia Logo" />
       <h1>Iniciar Sesión</h1>
 
       <div className="input-container">
