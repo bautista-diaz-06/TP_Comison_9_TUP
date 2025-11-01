@@ -4,6 +4,7 @@ function Experiencia() {
       <div className="experiencia-content">
         <div className="status-container">
           <div className="message-container">
+            <h2 className="section-title">Estado Actual</h2>
             <p className="main-message">
               Actualmente me encuentro enfocado en mi formación académica y desarrollando proyectos personales
             </p>

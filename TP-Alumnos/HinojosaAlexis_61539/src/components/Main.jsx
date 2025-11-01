@@ -28,8 +28,7 @@ function useIsMobile() {
   }, []);
   return isMobile;
 }
-
-export default function Main() {
+function Main() {
   const [active, setActive] = useState(0);
   const [isInView, setIsInView] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -152,3 +151,4 @@ export default function Main() {
   );
 }
 
+export default Main;
