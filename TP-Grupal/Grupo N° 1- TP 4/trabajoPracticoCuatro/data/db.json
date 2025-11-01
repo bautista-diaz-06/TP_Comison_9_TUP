@@ -14,5 +14,26 @@
       "edad": 28,
       "fecha": "12-01-1997"
     }
+  ],
+
+  "Libros": [
+    {
+      "id": 1,
+      "titulo": "prueba1",
+      "autor": "Bautista Díaz",
+      "año": 2006
+    },
+    {
+      "id": 2,
+      "titulo": "prueba2",
+      "autor": "Rubén Cabanellas",
+      "año": 2000
+    },
+    {
+      "id": 3,
+      "titulo": "prueba3",
+      "autor": "Iván Velardez",
+      "año": 2009
+    }
   ]
 }
