@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../../Styles/TablaLibrosStyles.css";
 
 const TablaLibros = () => {
@@ -11,6 +12,9 @@ const TablaLibros = () => {
     return (
         <div className="tablaContainer">
             <h2>Libros</h2>
+            <Link to="/registrarLibro" className="botonRegistrarLibro">
+                Nuevo libro
+            </Link>
             <table className="librosTable">
                 <thead>
                     <tr>
