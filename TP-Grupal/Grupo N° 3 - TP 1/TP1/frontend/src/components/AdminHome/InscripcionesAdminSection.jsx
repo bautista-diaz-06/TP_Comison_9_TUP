@@ -1,69 +1,108 @@
 import { useEffect, useState } from "react";
 import { useAdminUIStore } from "../../store/AdminUIStore";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
 const InscripcionesAdminSection = () => {
   const { mode } = useAdminUIStore();
   const [inscripciones, setInscripciones] = useState([]);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("inscripciones")) || [];
-    setInscripciones(stored);
+    const load = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/inscripciones`);
+        if (!res.ok) throw new Error("Error al obtener inscripciones");
+        const data = await res.json();
+        setInscripciones(data);
+      } catch (err) {
+        console.error(err);
+        alert(
+          "No se pudieron cargar las inscripciones desde el servidor. Asegúrate de iniciar el servidor de la API."
+        );
+        setInscripciones([]);
+      }
+    };
+    load();
   }, []);
 
-  const guardarInscripciones = (data) => {
-    localStorage.setItem("inscripciones", JSON.stringify(data));
+  const actualizarInscripcionesEnEstado = (data) => {
     setInscripciones(data);
   };
 
-  const handleRowClick = (i) => {
-    switch (mode) {
-      case "ver":
-        alert(
-          `📘 Curso: ${i.cursoNombre || i.curso}\n👤 Alumno: ${
-            i.alumno || i.userId
-          }\n📅 ${i.fecha || "Sin fecha"}\nEstado: ${i.estado || "Pendiente"}`
-        );
-        break;
+  const handleRowClick = async (i) => {
+    try {
+      switch (mode) {
+        case "ver":
+          alert(
+            `📘 Curso: ${i.cursoNombre || i.curso}\n👤 Alumno: ${
+              i.alumno || i.userId
+            }\n📅 ${i.fecha || "Sin fecha"}\nEstado: ${i.estado || "Pendiente"}`
+          );
+          break;
 
-      case "aceptar": {
-        const actualizado = inscripciones.map((insc) =>
-          insc.id === i.id ? { ...insc, estado: "Aceptada" } : insc
-        );
-        guardarInscripciones(actualizado);
-        alert(`✅ Inscripción aceptada (${i.curso || i.cursoNombre}).`);
-        break;
+        case "aceptar": {
+          // actualizar en el servidor
+          const res = await fetch(`${API_BASE}/inscripciones/${i.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ estado: "Aceptada" }),
+          });
+          if (!res.ok) throw new Error("Error al actualizar inscripción");
+          const updated = await res.json();
+          const nuevo = inscripciones.map((insc) => (insc.id === i.id ? updated : insc));
+          actualizarInscripcionesEnEstado(nuevo);
+          alert(`✅ Inscripción aceptada (${i.curso || i.cursoNombre}).`);
+          break;
+        }
+
+        case "rechazar": {
+          const res = await fetch(`${API_BASE}/inscripciones/${i.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ estado: "Rechazada" }),
+          });
+          if (!res.ok) throw new Error("Error al actualizar inscripción");
+          const updated = await res.json();
+          const nuevo = inscripciones.map((insc) => (insc.id === i.id ? updated : insc));
+          actualizarInscripcionesEnEstado(nuevo);
+          alert(`❌ Inscripción rechazada (${i.curso || i.cursoNombre}).`);
+          break;
+        }
+
+        default:
+          break;
       }
-
-      case "rechazar": {
-        const actualizado = inscripciones.map((insc) =>
-          insc.id === i.id ? { ...insc, estado: "Rechazada" } : insc
-        );
-        guardarInscripciones(actualizado);
-        alert(`❌ Inscripción rechazada (${i.curso || i.cursoNombre}).`);
-        break;
-      }
-
-      default:
-        break;
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "Error en la operación");
     }
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     const alumno = prompt("Nombre del alumno:");
     const curso = prompt("Nombre del curso:");
     if (!alumno || !curso) return;
-    const nueva = [
-      ...inscripciones,
-      {
-        id: Date.now(),
+    try {
+      const payload = {
         alumno,
         curso,
         estado: "Pendiente",
         fecha: new Date().toLocaleDateString(),
-      },
-    ];
-    guardarInscripciones(nueva);
-    alert(`📋 Inscripción creada para ${alumno} en "${curso}".`);
+      };
+      const res = await fetch(`${API_BASE}/inscripciones`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Error al crear inscripción");
+  const saved = await res.json();
+  const nueva = [...inscripciones, saved];
+  actualizarInscripcionesEnEstado(nueva);
+      alert(`📋 Inscripción creada para ${alumno} en "${curso}".`);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "Error al crear inscripción");
+    }
   };
 
   return (
