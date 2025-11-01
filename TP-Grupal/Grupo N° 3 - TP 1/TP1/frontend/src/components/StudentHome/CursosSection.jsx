@@ -1,57 +1,68 @@
 import { useCursos } from "../../hooks/CursosHook";
 import { useStudentUIStore } from "../../store/StudentUIStore";
 
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
 const CursosSection = () => {
   const { cursos, updateCurso, reloadCursos } = useCursos(); // 👈 agregamos hooks extra
   const { mode } = useStudentUIStore();
 
-  const handleCursoClick = (curso) => {
+  const handleCursoClick = async (curso) => {
     if (mode === "inscribir") {
       const userId = localStorage.getItem("userId");
-      const inscripciones =
-        JSON.parse(localStorage.getItem("inscripciones")) || [];
 
-      // Evitar inscribir duplicado
-      const yaInscripto = inscripciones.some(
-        (i) => i.userId === userId && i.cursoId === curso.id
-      );
-      if (yaInscripto) {
-        alert("⚠️ Ya estás inscripto en este curso.");
-        return;
+      try {
+        // Verificar inscripción existente en el servidor
+        const q = new URLSearchParams({ userId, cursoId: curso.id });
+        const resCheck = await fetch(`${API_BASE}/inscripciones?${q.toString()}`);
+        const exists = await resCheck.json();
+        if (exists && exists.length > 0) {
+          alert("⚠️ Ya estás inscripto en este curso.");
+          return;
+        }
+
+        // Verificar cupo disponible en el servidor
+        if (curso.cupo <= 0) {
+          alert("❌ No hay cupos disponibles en este curso.");
+          return;
+        }
+
+        // Crear inscripción en el servidor
+        const nueva = {
+          userId,
+          cursoId: curso.id,
+          cursoNombre: curso.nombre,
+          categoria: curso.categoria,
+          duracion: curso.duracion,
+          estado: "Activo",
+          fecha: new Date().toLocaleDateString(),
+        };
+
+        const res = await fetch(`${API_BASE}/inscripciones`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(nueva),
+        });
+        if (!res.ok) throw new Error("Error al crear inscripción en el servidor");
+
+        const saved = await res.json();
+
+        // reducir cupo en el servidor
+        await fetch(`${API_BASE}/cursos/${curso.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cupo: curso.cupo - 1 }),
+        });
+
+        // Actualizar UI local basándose en la confirmación del servidor
+        updateCurso(curso.id, { cupo: curso.cupo - 1 });
+        reloadCursos();
+
+        alert(`✅ Inscripción exitosa al curso: ${curso.nombre}`);
+      } catch (err) {
+        console.error(err);
+        alert(err.message || "Error al inscribir");
       }
-
-      // Chequear cupo
-      if (curso.cupo <= 0) {
-        alert("❌ No hay cupos disponibles en este curso.");
-        return;
-      }
-
-      // Crear inscripción
-      const nueva = {
-        userId,
-        cursoId: curso.id,
-        cursoNombre: curso.nombre,
-        categoria: curso.categoria,
-        duracion: curso.duracion,
-        estado: "Activo",
-        fecha: new Date().toLocaleDateString(),
-      };
-
-      inscripciones.push(nueva);
-      localStorage.setItem("inscripciones", JSON.stringify(inscripciones));
-
-      // Reducir cupo directamente en localStorage
-      const cursosLocal = JSON.parse(localStorage.getItem("cursos")) || [];
-      const index = cursosLocal.findIndex((c) => c.id === curso.id);
-      if (index !== -1) {
-        cursosLocal[index].cupo -= 1; // 👈 reducir cupo real
-        localStorage.setItem("cursos", JSON.stringify(cursosLocal));
-      }
-
-      // Actualizar estado del hook
-      updateCurso(curso.id, { cupo: curso.cupo - 1 }); // 👈 refrescar React state
-      reloadCursos(); // 👈 forzar recarga visual
-      alert(`✅ Inscripción exitosa al curso: ${curso.nombre}`);
     } else if (mode === "ver") {
       alert(`👁️ Curso: ${curso.nombre}\nDuración: ${curso.duracion}`);
     }

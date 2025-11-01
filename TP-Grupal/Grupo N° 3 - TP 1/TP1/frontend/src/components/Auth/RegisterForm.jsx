@@ -2,6 +2,7 @@ import { useState } from "react";
 import useRegister from "../../hooks/RegisterHook";
 import "../../CSS/AuthLayout.css";
 import { useAuthUIStore } from "../../store/AuthUIStore";
+import logo from "../../../img/logo1.png"
 
 const RegisterForm = () => {
   const [Nombre, setNombre] = useState("");
@@ -34,7 +35,7 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleRegister} className="formauth">
-      <img src="/4900-lucoa.png" alt="Academia Logo" />
+      <img src={logo} alt="Academia Logo" />
       <h1>Registrarse</h1>
 
       <div className="input-container">
