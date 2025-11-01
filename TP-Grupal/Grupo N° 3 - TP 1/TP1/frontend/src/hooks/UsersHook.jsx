@@ -24,8 +24,9 @@ export const useUsers = () => {
           alert(
             "No se pudieron cargar los usuarios desde la API. Asegúrate de iniciar el servidor de la API."
           );
-        } catch {}
-        if (mounted) setUsers([]);
+        } catch {
+          if (mounted) setUsers([]);
+        }
       }
     };
 

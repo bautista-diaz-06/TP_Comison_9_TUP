@@ -42,8 +42,10 @@ const useLogin = () => {
       return { ok: true, user };
     } catch (err) {
       console.error("Login error:", err);
-      try { alert("Error de conexión al iniciar sesión: " + (err?.message || err)); } catch {}
+      try { alert("Error de conexión al iniciar sesión: " + (err?.message || err)); } 
+      catch {
       return { ok: false, message: "Error de conexión al iniciar sesión." };
+      }
     }
   };
 

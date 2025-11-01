@@ -62,7 +62,9 @@ const AlumnosAdminSection = () => {
                   "No se pudo actualizar el alumno en el servidor: " +
                     (err?.message || "")
                 );
-              } catch {}
+              } catch {
+                // ignora errores
+              }
               return;
             }
         })();
@@ -92,7 +94,9 @@ const AlumnosAdminSection = () => {
                     "No se pudo eliminar el alumno en el servidor: " +
                       (err?.message || "")
                   );
-                } catch {}
+                } catch {
+                  // ignora errores
+                }
 
                 return;
               }
@@ -133,7 +137,9 @@ const AlumnosAdminSection = () => {
             "No se pudo registrar el alumno en el servidor: " +
               (err?.message || "")
           );
-        } catch {}
+        } catch {
+          // ignora errores
+        }
         
         return;
       }

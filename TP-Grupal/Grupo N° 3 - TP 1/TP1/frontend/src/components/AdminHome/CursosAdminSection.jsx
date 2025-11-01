@@ -56,7 +56,9 @@ const CursosSection = () => {
       console.warn("No se pudo sincronizar cursos con API:", err.message);
       try {
         alert("No se pudieron sincronizar los cursos con la API: " + (err?.message || ""));
-      } catch {}
+      } catch {
+        // ignora errores
+      }
 
     }
   };
@@ -122,6 +124,13 @@ const CursosSection = () => {
           });
           if (!res.ok) throw new Error("Error al crear inscripción");
           const saved = await res.json();
+
+          // Notificar a otras partes de la app que se creó una nueva inscripción
+          try {
+            window.dispatchEvent(new CustomEvent("inscripcionesChanged", { detail: saved }));
+          } catch {
+            // ignore dispatch errors
+          }
 
           // decrement cupo on server
           await fetch(`${API_BASE}/cursos/${curso.id}`, {

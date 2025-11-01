@@ -47,7 +47,12 @@ const CursosSection = () => {
 
         const saved = await res.json();
 
-        // reducir cupo en el servidor
+        try {
+          window.dispatchEvent(new CustomEvent("inscripcionesChanged", { detail: saved }));
+        } catch {
+          // ignora errores
+        }
+
         await fetch(`${API_BASE}/cursos/${curso.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

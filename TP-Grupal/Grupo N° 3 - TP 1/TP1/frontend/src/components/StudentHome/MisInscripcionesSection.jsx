@@ -20,11 +20,22 @@ const MisInscripcionesSection = () => {
           alert(
             "No se pudieron obtener las inscripciones desde la API. Asegúrate de iniciar el servidor de la API."
           );
-        } catch {}
+        } catch {
+          // ignora errores
+        }
         setMisInscripciones([]);
       }
     };
     load();
+
+    const handleInscripcionesChanged = () => {
+      load();
+    };
+    window.addEventListener("inscripcionesChanged", handleInscripcionesChanged);
+
+    return () => {
+      window.removeEventListener("inscripcionesChanged", handleInscripcionesChanged);
+    };
   }, []);
 
   return (

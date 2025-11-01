@@ -47,8 +47,9 @@ const useRegister = () => {
       // Avisar al usuario que la operación falló por red/servidor
       try {
         alert("Error de conexión al registrar: " + (err?.message || err));
-      } catch {}
+      } catch {
       return { ok: false, message: "Error de conexión al registrar." };
+      }
     }
   };
 
