@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import NavBar from './components/Navbar';
-import Login from './pages/Login';
-import Registro from './pages/Registro';
-import Dashboard from './pages/Dashboard';
-import Pacientes from './pages/Pacientes';
-import Medicos from './pages/Medicos';
-import Turnos from './pages/Turnos'; // importa la página
+import LoginPage from './pages/LoginPage';
+import RegistroPage from './pages/RegistroPage';
+import InicioPage from './pages/InicioPage';
+import PacientesPage from './pages/PacientesPage';
+import MedicosPage from './pages/MedicosPage';
+import TurnosPage from './pages/TurnosPage';
 import './Styles/app.css';
+import { HOME, LOGIN, MEDICOS, PACIENTES, REGISTER, TURNOS } from './router/HomePage.routes';
 
 function App() {
   const [logueado, setLogueado] = useState(() => {
@@ -24,34 +25,30 @@ function App() {
 
       <Routes>
         <Route
-          path="/login"
-          element={logueado ? <Navigate to="/dashboard" /> : <Login setLogueado={setLogueado} />}
+          path={LOGIN}
+          element={logueado ? <Navigate to={"/inicio"} /> : <LoginPage setLogueado={setLogueado} />}
         />
         <Route
-          path="/registro"
-          element={logueado ? <Navigate to="/dashboard" /> : <Registro />}
+          path={REGISTER}
+          element={logueado ? <Navigate to="/inicio" /> : <RegistroPage />}
         />
         <Route
-          path="/dashboard"
-          element={logueado ? <Dashboard /> : <Navigate to="/login" />}
+          path={HOME}
+          element={logueado ? <InicioPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/pacientes"
-          element={logueado ? <Pacientes /> : <Navigate to="/login" />}
+          path={PACIENTES}
+          element={logueado ? <PacientesPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/medicos"
-          element={logueado ? <Medicos /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="*"
-          element={<Navigate to={logueado ? "/dashboard" : "/login"} />}
+          path={MEDICOS}
+          element={logueado ? <MedicosPage /> : <Navigate to="/login" />}
         />
 
         <Route
-  path="/turnos"
-  element={logueado ? <Turnos /> : <Navigate to="/login" />}
-/>
+          path={TURNOS}
+          element={logueado ? <TurnosPage /> : <Navigate to="/login" />}
+        />
 
       </Routes>
     </Router>

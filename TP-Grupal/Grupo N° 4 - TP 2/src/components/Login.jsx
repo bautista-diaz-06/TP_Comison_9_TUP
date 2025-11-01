@@ -20,7 +20,7 @@ export default function Login({ setLogueado }) {
       localStorage.setItem('usuarioActual', JSON.stringify(usuario));
       localStorage.setItem('logueado', true);
       setLogueado(true);
-      navigate('/dashboard');
+      navigate('/inicio');
     } else {
       alert('Usuario o contraseña incorrectos');
     }

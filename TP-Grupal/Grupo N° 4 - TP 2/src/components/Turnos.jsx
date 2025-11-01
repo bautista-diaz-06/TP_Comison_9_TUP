@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TarjetaEstadistica from '../dashboard/TarjetaEstadistica';
 import '../Styles/Turnos.css';
 
-export default function Turnos() {
+export default function TurnosPage() {
   const [turnos, setTurnos] = useState([]);
   const [nuevoTurno, setNuevoTurno] = useState({
     paciente: '',

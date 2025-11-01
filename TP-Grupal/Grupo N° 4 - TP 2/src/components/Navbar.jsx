@@ -37,8 +37,8 @@ export default function NavBar({ setLogueado }) {
     <nav style={navbarStyle}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         
-        <Link to="/dashboard" style={linkStyle} onMouseEnter={linkHover} onMouseLeave={linkOut}>
-          Dashboard
+        <Link to="/inicio" style={linkStyle} onMouseEnter={linkHover} onMouseLeave={linkOut}>
+          Inicio
         </Link>
 
         <Link to="/pacientes" style={linkStyle} onMouseEnter={linkHover} onMouseLeave={linkOut}>
