@@ -2,58 +2,64 @@ import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Header from "../components/Header";
+import { getArtistas, createArtista, updateArtista, deleteArtista } from "../services/artistasService";
 
 const TablaArtistas = () => {
   const [artistas, setArtistas] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
   const [form, setForm] = useState({ nombre: "", tipo: "" });
 
-  // Cargar artistas desde localStorage
+  // Cargar artistas desde el backend
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("artistas")) || [];
-    setArtistas(stored);
+    const fetchArtistas = async () => {
+      try {
+        const data = await getArtistas();
+        setArtistas(data);
+      } catch (error) {
+        console.error("Error al cargar artistas:", error);
+      }
+    };
+    fetchArtistas();
   }, []);
-
-  // Guardar artistas en localStorage cuando cambien
-  useEffect(() => {
-    localStorage.setItem("artistas", JSON.stringify(artistas));
-  }, [artistas]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.nombre || !form.tipo) return;
 
-    if (editandoId !== null) {
-      const updated = artistas.map((a) =>
-        a.id === editandoId ? { ...a, ...form } : a
-      );
-      setArtistas(updated);
-      setEditandoId(null);
-    } else {
-      const nuevoArtista = {
-        id: artistas.length > 0 ? Math.max(...artistas.map(a => a.id)) + 1 : 1,
-        ...form,
-      };
-      setArtistas([...artistas, nuevoArtista]);
+    try {
+      if (editandoId !== null) {
+        const updated = await updateArtista(editandoId, form);
+        setArtistas(artistas.map(a => a.id === editandoId ? updated : a));
+        setEditandoId(null);
+      } else {
+        const nuevo = await createArtista(form);
+        setArtistas([...artistas, nuevo]);
+      }
+      setForm({ nombre: "", tipo: "" });
+    } catch (error) {
+      console.error("Error al guardar artista:", error);
     }
-
-    setForm({ nombre: "", tipo: "" });
   };
 
   const handleEdit = (id) => {
-    const artista = artistas.find((a) => a.id === id);
+    const artista = artistas.find(a => a.id === id);
     if (artista) {
       setForm({ nombre: artista.nombre, tipo: artista.tipo });
       setEditandoId(id);
     }
   };
 
-  const handleDelete = (id) => {
-    setArtistas(artistas.filter((a) => a.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await deleteArtista(id);
+      setArtistas(artistas.filter(a => a.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar artista:", error);
+    }
   };
 
   return (

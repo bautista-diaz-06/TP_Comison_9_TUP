@@ -48,58 +48,72 @@
   ],
   "eventos": [
     {
-      "id": "1",
-      "titulo": "Festival de Música",
-      "fecha": "2025-11-20"
+      "id": 1,
+      "nombre": "Concierto A",
+      "fecha": "2025-11-10",
+      "lugar": "Teatro Principal",
+      "cupo": 50,
+      "artistas": [
+        1,
+        2
+      ]
     },
     {
-      "id": "2",
-      "titulo": "Concierto Rock",
-      "fecha": "2025-12-10"
+      "id": 2,
+      "nombre": "Concierto B",
+      "fecha": "2025-11-15",
+      "lugar": "Estadio Central",
+      "cupo": 30,
+      "artistas": [
+        2
+      ]
     },
     {
-      "id": "1731",
-      "titulo": "Nuevo Evento",
-      "fecha": "2025-12-25"
-    },
-    {
-      "id": "1a52",
-      "titulo": "Nuevo Evento",
-      "fecha": "2025-12-25"
-    },
-    {
-      "id": "0d48",
-      "titulo": "Nuevo Evento",
-      "fecha": "2025-12-25"
-    },
-    {
-      "id": "09ff",
-      "titulo": "Nuevo Evento",
-      "fecha": "2025-12-25"
+      "id": "57c3",
+      "nombre": "Concierto C",
+      "fecha": "2025-11-18",
+      "lugar": "San Miguel de Tucuman",
+      "cupo": 2,
+      "artistas": [
+        "2"
+      ]
     }
   ],
   "artistas": [
     {
-      "id": "1",
-      "nombre": "Artista A",
-      "genero": "Pop"
+      "nombre": "Taylor",
+      "tipo": "Pop",
+      "id": "1"
     },
     {
-      "id": "2",
-      "nombre": "Artista B",
-      "genero": "Rock"
+      "nombre": "Michael",
+      "tipo": "Rock",
+      "id": "2"
+    },
+    {
+      "id": "42a3",
+      "nombre": "Olivia Rodrigo",
+      "tipo": "Retro"
     }
   ],
   "asistentes": [
     {
-      "id": "1",
+      "id": 1,
       "nombre": "Juan Pérez",
+      "email": "juan.perez@email.com",
       "eventoId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "nombre": "Lucía Gómez",
+      "email": "lucia.gomez@email.com",
       "eventoId": 2
+    },
+    {
+      "id": "d8c5",
+      "nombre": "Miguel Perez",
+      "email": "miguelperez011@gmail.com",
+      "eventoId": 1
     }
   ]
 }
