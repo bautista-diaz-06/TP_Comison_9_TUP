@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { crearAlumno, editarAlumno, obtenerAlumno, obtenerAlumnoPorId } from "../services/alumnos.services";
+import { crearAlumno, editarAlumno, eliminarAlumno, obtenerAlumno, obtenerAlumnoPorId } from "../services/alumnos.services";
 import { useNavigate } from "react-router-dom";
 
 export const useAlumnos = () => {
@@ -49,11 +49,21 @@ export const useAlumnos = () => {
         }
     }
 
+    const eliminacionAlumno = async (id) => {
+        try {
+            await eliminarAlumno(id)
+            setAlumnos(alumnos.filter(alu => alu.id !== id))
+        } catch (error) {
+            console.error("Error al eliminar un alumno");
+        }
+    }
+
     return {
         alumnos,
         fetchAlumnosPorId,
         registroAlumno,
-        modificarAlumno
+        modificarAlumno,
+        eliminacionAlumno
     }
     
 }
