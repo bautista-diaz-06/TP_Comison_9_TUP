@@ -1,0 +1,12 @@
+.socios-list-container {
+  margin-top: 2rem;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+.socios-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
