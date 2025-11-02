@@ -1,4 +1,4 @@
-.containerEditarAlumno {
+.containerEditarAlumno, .containerEditarLibro {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   background-color: #f7f9fb;
 }
 
-.formEditarAlumno {
+.formEditarAlumno, .formEditarLibro {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -18,7 +18,7 @@
   max-width: 400px;
 }
 
-.formEditarAlumno h2 {
+.formEditarAlumno, .formEditarLibro h2 {
   text-align: center;
   color: #333;
   margin-bottom: 1rem;

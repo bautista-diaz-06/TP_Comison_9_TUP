@@ -2,10 +2,10 @@
 ### Grupo Nº: 1  
 ### Tema asignado: Sistema de Gestión de Biblioteca Escolar
 ### Integrantes (Nombre completo + Legajo):
-- Cabanellas Rúben - 
+- Cabanellas Rúben - 61123
 - Díaz Bautista - 61586
-- Salvatierra Facundo - 
-- Velardez Iván - 
+- Salvatierra Facundo - 61738 
+- Velardez Iván - 61061
 
 ---
 
@@ -28,12 +28,19 @@ Describir brevemente lo encontrado al abrir el proyecto:
 ## 2) SOLUCIONES IMPLEMENTADAS + NUEVO AGREGADO
 
 ### ✅ Soluciones aplicadas a problemas detectados
-- …
+- No se detectaron problemas en cuanto a funcionalidades sino las estructuras de carpetas
 
 ### ✅ Nuevos requerimientos de Semana 2 agregados
+- react-router-dom ya estaba implementado, y se modularizaron las rutas internas
+- Login simulado obteniendo los datos de "Admins" de json-server
+- Hooks personalizados para permitir que las peticiones HTTP funciones desde el frontend
 - Instalacion de json-server y su script, asi como tambien la carpeta "data"
 - json-server configurado
----
+- Carpeta /services configurada
+- El proyecto se siguió sin modificar la estructura de carpetas anterior
 
 ## Observaciones finales (opcional)
 - Comentarios sobre el flujo de trabajo, dificultades o acuerdos del equipo.
+
+En ciertas funcionalidades sobre los servicios, al empezar a hacerlo fueron medio confusas ya que no solemos controlar todo un "crud" desde el frontend con JSX puro. Pero a medida que fuimos avanzando, se hizo más entendible ya que pudimos lograr implementar alguna estructura de carpetas asi como tambien dejar comentadas ciertas partes del codigo para que los proximos pudiesen entender.
+Por ejemplo, algo que nos quedó pendiente fueron las funcionalidades de editar y eliminar, si bien al presionar en editar te lleva a un formulario para editar, este no funciona. Y en cuanto a la eliminacion, tambien, no fuimos capaces de lograr que se pudiera eliminar al presionar dicho botón.
