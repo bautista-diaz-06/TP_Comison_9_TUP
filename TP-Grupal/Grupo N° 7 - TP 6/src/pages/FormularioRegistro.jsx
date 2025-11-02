@@ -13,9 +13,13 @@ const handleSubmit = async (e) => {
   if (!success) {
     alert("Hubo un error al registrar el usuario");
     setPassword("");
+  } else {
+    alert("Usuario registrado correctamente. Ahora podés iniciar sesión.");
+    setNombre("");
+    setPassword("");
   }
-  // no hace falta navigate aquí, lo hace el hook
 };
+
 
   return (
     <div className="login-container">

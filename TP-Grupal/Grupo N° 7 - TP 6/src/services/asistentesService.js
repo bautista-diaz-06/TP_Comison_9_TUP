@@ -25,7 +25,7 @@ export const deleteAsistente = async (id) => {
   return true;
 };
 
-// Opcional: actualizar asistente si después querés agregar edición
+// Opcional: actualizar asistente
 export const updateAsistente = async (id, asistente) => {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "PUT",

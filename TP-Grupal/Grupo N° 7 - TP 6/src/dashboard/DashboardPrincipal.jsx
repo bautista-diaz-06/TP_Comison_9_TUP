@@ -20,7 +20,7 @@ const DashboardPrincipal = () => {
         setUsuariosCount(usuarios.length);
         setEventosCount(eventos.length);
 
-        // Aquí podés calcular ventas e ingresos si agregás una tabla de "ventas"
+        // Aquí se podria calcular ventas e ingresos si agregan una tabla de "ventas"
         setVentasCount(350); 
         setIngresosTotal("$3.250.000");
       } catch (error) {

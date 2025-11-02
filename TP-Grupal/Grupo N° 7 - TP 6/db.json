@@ -64,22 +64,43 @@
       "id": "3ee8",
       "nombre": "sol",
       "password": "123"
+    },
+    {
+      "id": "7082",
+      "nombre": "osito perez",
+      "password": "hueso"
+    },
+    {
+      "id": "be8e",
+      "nombre": "Maria Diaz",
+      "password": "444"
+    },
+    {
+      "id": "2654",
+      "nombre": "camilay",
+      "password": "666"
+    },
+    {
+      "id": "c2d4",
+      "nombre": "Bautista",
+      "password": "bauti123"
     }
   ],
   "eventos": [
     {
-      "id": 1,
       "nombre": "Concierto A",
       "fecha": "2025-11-10",
       "lugar": "Teatro Principal",
       "cupo": 50,
       "artistas": [
         1,
-        2
-      ]
+        2,
+        "1"
+      ],
+      "id": "1"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Concierto B",
       "fecha": "2025-11-15",
       "lugar": "Estadio Central",
@@ -97,6 +118,14 @@
       "artistas": [
         "2"
       ]
+    },
+    {
+      "id": "1978",
+      "nombre": "Concierto D",
+      "fecha": "2025-11-30",
+      "lugar": "San Miguel de Tucuman",
+      "cupo": 30,
+      "artistas": []
     }
   ],
   "artistas": [
@@ -118,22 +147,28 @@
   ],
   "asistentes": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Juan Pérez",
       "email": "juan.perez@email.com",
       "eventoId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Lucía Gómez",
       "email": "lucia.gomez@email.com",
       "eventoId": 2
     },
     {
-      "id": "d8c5",
+      "id": "e681",
       "nombre": "Miguel Perez",
       "email": "miguelperez011@gmail.com",
-      "eventoId": 1
+      "eventoId": 2
+    },
+    {
+      "id": "ba7e",
+      "nombre": "Taylor",
+      "email": "taylor@gmail.com",
+      "eventoId": 1978
     }
   ]
 }

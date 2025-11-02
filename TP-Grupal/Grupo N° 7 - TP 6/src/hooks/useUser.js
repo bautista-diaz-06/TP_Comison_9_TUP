@@ -40,17 +40,14 @@ export const useUser = () => {
 
   // Función de registro
   const register = async ({ nombre, password }) => {
-    try {
-      const newUser = await createUser({ nombre, password });
-      localStorage.setItem("user", JSON.stringify(newUser));
-      setUser(newUser);
-      navigate("/dashboard"); // Redirige al dashboard después del registro
-      return true;
-    } catch (error) {
-      console.error("Error en registro:", error);
-      return false;
-    }
-  };
+  try {
+    const newUser = await createUser({ nombre, password });
+      return true; 
+  } catch (error) {
+    console.error("Error en registro:", error);
+    return false;
+  }
+};
 
   // Logout
   const logout = () => {

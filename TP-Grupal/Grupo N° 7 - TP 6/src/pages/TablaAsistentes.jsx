@@ -14,7 +14,11 @@ const TablaAsistentes = () => {
     const fetchData = async () => {
       try {
         const dataAsistentes = await getAsistentes();
-        const dataEventos = await getEventos();
+        const dataEventosRaw = await getEventos();
+
+        // Convertimos los IDs de eventos a número para evitar problemas de tipo
+        const dataEventos = dataEventosRaw.map(ev => ({ ...ev, id: Number(ev.id) }));
+
         setAsistentes(dataAsistentes);
         setEventos(dataEventos);
       } catch (error) {
@@ -30,8 +34,8 @@ const TablaAsistentes = () => {
     e.preventDefault();
     if (!form.nombre || !form.email || !form.eventoId) return;
 
-    const eventoSeleccionado = eventos.find(ev => ev.id === parseInt(form.eventoId));
-    const asistentesDelEvento = asistentes.filter(a => a.eventoId === parseInt(form.eventoId));
+    const eventoSeleccionado = eventos.find(ev => ev.id === Number(form.eventoId));
+    const asistentesDelEvento = asistentes.filter(a => Number(a.eventoId) === Number(form.eventoId));
 
     if (eventoSeleccionado && asistentesDelEvento.length >= eventoSeleccionado.cupo) {
       alert("Este evento ya alcanzó su cupo máximo.");
@@ -41,7 +45,7 @@ const TablaAsistentes = () => {
     const nuevoAsistente = {
       nombre: form.nombre,
       email: form.email,
-      eventoId: parseInt(form.eventoId),
+      eventoId: Number(form.eventoId),
     };
 
     try {
@@ -65,7 +69,17 @@ const TablaAsistentes = () => {
   return (
     <div>
       <Header />
-      <form onSubmit={handleSubmit} style={{ display: "flex", justifyContent: "center", gap: "10px", margin: "20px 0", flexWrap: "wrap", marginTop: "100px" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px",
+          margin: "20px 0",
+          flexWrap: "wrap",
+          marginTop: "100px"
+        }}
+      >
         <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} required />
         <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
         <select name="eventoId" value={form.eventoId} onChange={handleChange} required>
@@ -89,7 +103,8 @@ const TablaAsistentes = () => {
         </thead>
         <tbody>
           {asistentes.map(a => {
-            const evento = eventos.find(ev => ev.id === a.eventoId);
+            // Convertimos el eventoId a número para asegurar coincidencia
+            const evento = eventos.find(ev => ev.id === Number(a.eventoId));
             return (
               <tr key={a.id}>
                 <td>{a.id}</td>
