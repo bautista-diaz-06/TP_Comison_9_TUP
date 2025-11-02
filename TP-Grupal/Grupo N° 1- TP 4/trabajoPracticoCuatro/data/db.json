@@ -35,5 +35,14 @@
       "autor": "Iván Velardez",
       "año": 2009
     }
-  ]
+  ],
+
+  "Admins": [{
+    "nombre": "Agustin Díaz",
+    "contrasena": "aguchito2001"
+  },
+  {
+    "nombre": "Pepito Dupuy",
+    "contrasena": "pepito"
+  }]
 }

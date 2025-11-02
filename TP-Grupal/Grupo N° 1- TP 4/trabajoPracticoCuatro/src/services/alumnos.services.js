@@ -23,3 +23,8 @@ export const editarAlumno = async (id, bodyEditado) => {
     const res = await api.put(`${ALUMNOS_URL}/${id}`, bodyEditado)
     return res.data
 }
+
+export const eliminarAlumno = async(id) => {
+    const res = await api.delete(`${ALUMNOS_URL}/${id}`)
+    return res.data
+}

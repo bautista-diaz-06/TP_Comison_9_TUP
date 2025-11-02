@@ -1,23 +1,28 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 import Inicio from "./Containers/Inicio"
 import RegistrarAlumno from "./Containers/RegistrarAlumno"
+import FormEditarAlumno from "./Componets/FormEditarAlumno"
 import RegistrarLibro from "./Containers/RegistrarLibro"
 import Alumnos from "./Containers/Alumnos"
 import Libros from "./Containers/Libros"
 import Auditoria from "./Containers/Auditoria"
 import Prestamos from "./Containers/Prestamos"
-import { VER_ALUMNOS, CREAR_ALUMNOS } from "./routers/alumnos.routes"
+import { VER_ALUMNOS, CREAR_ALUMNOS, EDITAR_ALUMNO } from "./routers/alumnos.routes"
 import { CREAR_LIBRO, VER_LIBROS } from "./routers/libros.routes"
+import { INICIO, RAIZ } from "./routers/inicio.routes"
+import LoginPage from "./pages/LoginPage"
 
 function App() {
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Inicio/>}/>
-        <Route path="/inicio" element={<Inicio/>}/>
+        <Route path={RAIZ} element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path={INICIO} element={<Inicio/>}/>
         <Route path={VER_ALUMNOS} element={<Alumnos/>}/>
         <Route path={CREAR_ALUMNOS} element={<RegistrarAlumno/>} />
+        <Route path={EDITAR_ALUMNO} element={<FormEditarAlumno/>}/>
          <Route path={CREAR_LIBRO} element={<RegistrarLibro/>}/>
          <Route path={VER_LIBROS} element={<Libros/>}/>
          <Route path="/auditoria" element={<Auditoria/>}/>

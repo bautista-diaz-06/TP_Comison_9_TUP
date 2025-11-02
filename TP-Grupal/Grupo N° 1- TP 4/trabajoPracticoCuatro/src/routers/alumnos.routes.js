@@ -4,3 +4,4 @@
 //todas estas rutas de aqui son para la navegacion interna de la app
 export const VER_ALUMNOS = "/alumnos"
 export const CREAR_ALUMNOS = "/registrarAlumno"
+export const EDITAR_ALUMNO = "/editar-alumno/:id"
