@@ -1,9 +1,9 @@
-import "../Styles/FormEditarAlumnos.css";
+import "../Styles/FormEditar.css";
 
 const FormEditarAlumno = () => {
   return (
-    <div className="containerEditarAlumno">
-      <form className="formEditarAlumno">
+    <div className="containerEditarLibro">
+      <form className="formEditarLibro">
         <h2>Editar Alumno</h2>
 
         <div className="campo">
@@ -35,3 +35,5 @@ const FormEditarAlumno = () => {
 };
 
 export default FormEditarAlumno;
+
+

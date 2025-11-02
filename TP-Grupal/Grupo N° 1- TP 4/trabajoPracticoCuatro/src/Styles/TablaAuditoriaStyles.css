@@ -29,3 +29,14 @@
 .auditoriaTable tr:hover {
   background-color: #e0f0ff;
 }
+
+.botonRegistrarAuditoria{
+  background-color: rgb(2, 172, 2);
+  color: white;
+  border-radius: 0.3rem;
+  font-weight: bolder;
+  padding: 8px 5px;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 10px; 
+}
