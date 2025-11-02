@@ -1,23 +1,57 @@
-import './App.css'
+// src/styles/App.jsx
+import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FormularioLogin from './pages/FormularioLogin'
-import { Routes, Route } from 'react-router-dom'
-import TablaEventos from './pages/TablaEventos'
+import { Routes, Route } from 'react-router-dom';
+import FormularioLogin from './pages/FormularioLogin';
+import FormularioRegistro from './pages/FormularioRegistro';
+import TablaEventos from './pages/TablaEventos';
 import TablaArtistas from './pages/TablaArtistas';
-import DashboardPrincipal from './dashboard/DashboardPrincipal';
 import TablaAsistentes from './pages/TablaAsistentes';
+import DashboardPrincipal from './dashboard/DashboardPrincipal';
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-
   return (
     <Routes>
-      <Route path="/" element={<FormularioLogin />}></Route>
-      <Route path="/tabla-eventos" element={<TablaEventos/>}></Route>
-      <Route path='/tabla-artistas' element={<TablaArtistas/>}></Route>
-      <Route path='/dashboard' element={<DashboardPrincipal />}></Route>
-      <Route path='/tabla-asistentes' element={<TablaAsistentes/>}></Route>
+      {/* Rutas públicas */}
+      <Route path="/" element={<FormularioLogin />} />
+      <Route path="/registro" element={<FormularioRegistro />} />
+
+      {/* Rutas privadas */}
+      <Route 
+        path="/tabla-eventos" 
+        element={
+          <PrivateRoute>
+            <TablaEventos />
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/tabla-artistas" 
+        element={
+          <PrivateRoute>
+            <TablaArtistas />
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/tabla-asistentes" 
+        element={
+          <PrivateRoute>
+            <TablaAsistentes />
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard" 
+        element={
+          <PrivateRoute>
+            <DashboardPrincipal />
+          </PrivateRoute>
+        } 
+      />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,30 +1,28 @@
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 const Header = () => {
-  const getName = localStorage.getItem("nombre");
-
-  const handleLogout = () => {
-    localStorage.removeItem("nombre"); // elimina el localstorage del usuario
-    window.location.href = "/"; //redirige al login
-  };
+  const { user, logout } = useUser();
 
   return (
     <div className="header">
-      <div className="container-bienvenida">BIENVENIDO {getName}</div>
+      <div className="container-bienvenida">
+        BIENVENIDO {user ? user.nombre : "Invitado"}
+      </div>
 
       <nav className="navbar">
         <ul>
           <li><Link to="/tabla-eventos">Eventos</Link></li>
-          <li><Link to="/dashboard"> Dashboards</Link></li>
+          <li><Link to="/dashboard">Dashboards</Link></li>
           <li><Link to="/tabla-artistas">Artistas</Link></li>
           <li><Link to="/tabla-asistentes">Asistentes</Link></li>
         </ul>
       </nav>
 
       <div className="btn-logout">
-        <Button variant="danger" onClick={handleLogout}>
-          Cerrar sesion
+        <Button variant="danger" onClick={logout}>
+          Cerrar sesión
         </Button>
       </div>
     </div>

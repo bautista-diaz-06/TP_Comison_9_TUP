@@ -2,77 +2,73 @@ import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Header from "../components/Header";
 import Button from "react-bootstrap/Button";
+import { getAsistentes, createAsistente, deleteAsistente } from "../services/asistentesService";
+import { getEventos } from "../services/eventosService";
 
 const TablaAsistentes = () => {
   const [asistentes, setAsistentes] = useState([]);
   const [eventos, setEventos] = useState([]);
-  const [form, setForm] = useState({
-    nombre: "",
-    email: "",
-    eventoId: "",
-  });
+  const [form, setForm] = useState({ nombre: "", email: "", eventoId: "" });
 
   useEffect(() => {
-    const asistentesGuardados =
-      JSON.parse(localStorage.getItem("asistentes")) || [];
-    setAsistentes(asistentesGuardados);
+    const fetchData = async () => {
+      try {
+        const dataAsistentes = await getAsistentes();
+        const dataEventosRaw = await getEventos();
 
-    const eventosGuardados = JSON.parse(localStorage.getItem("eventos")) || [];
-    setEventos(eventosGuardados);
+        // Convertimos los IDs de eventos a número para evitar problemas de tipo
+        const dataEventos = dataEventosRaw.map(ev => ({ ...ev, id: Number(ev.id) }));
+
+        setAsistentes(dataAsistentes);
+        setEventos(dataEventos);
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+      }
+    };
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("asistentes", JSON.stringify(asistentes));
-  }, [asistentes]);
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!form.nombre || !form.email || !form.eventoId) return;
 
-    // 🧠 Controlar cupo
-    const eventoSeleccionado = eventos.find(
-      (ev) => ev.id === parseInt(form.eventoId)
-    );
-    const asistentesDelEvento = asistentes.filter(
-      (a) => a.eventoId === parseInt(form.eventoId)
-    );
+    const eventoSeleccionado = eventos.find(ev => ev.id === Number(form.eventoId));
+    const asistentesDelEvento = asistentes.filter(a => Number(a.eventoId) === Number(form.eventoId));
 
-    if (asistentesDelEvento.length >= eventoSeleccionado.cupo) {
+    if (eventoSeleccionado && asistentesDelEvento.length >= eventoSeleccionado.cupo) {
       alert("Este evento ya alcanzó su cupo máximo.");
       return;
     }
 
     const nuevoAsistente = {
-      id:
-        asistentes.length > 0 ? Math.max(...asistentes.map((a) => a.id)) + 1 : 1,
       nombre: form.nombre,
       email: form.email,
-      eventoId: parseInt(form.eventoId),
+      eventoId: Number(form.eventoId),
     };
 
-    setAsistentes([...asistentes, nuevoAsistente]);
-
-    setForm({
-      nombre: "",
-      email: "",
-      eventoId: "",
-    });
+    try {
+      const creado = await createAsistente(nuevoAsistente);
+      setAsistentes([...asistentes, creado]);
+      setForm({ nombre: "", email: "", eventoId: "" });
+    } catch (error) {
+      console.error("Error al crear asistente:", error);
+    }
   };
 
-  const handleDelete = (id) => {
-    const tablaActualizada = asistentes.filter((a) => a.id !== id);
-    setAsistentes(tablaActualizada);
+  const handleDelete = async (id) => {
+    try {
+      await deleteAsistente(id);
+      setAsistentes(asistentes.filter(a => a.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar asistente:", error);
+    }
   };
 
   return (
     <div>
       <Header />
-
       <form
         onSubmit={handleSubmit}
         style={{
@@ -81,36 +77,15 @@ const TablaAsistentes = () => {
           gap: "10px",
           margin: "20px 0",
           flexWrap: "wrap",
-          marginTop: "100px",
+          marginTop: "100px"
         }}
       >
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={form.nombre}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="eventoId"
-          value={form.eventoId}
-          onChange={handleChange}
-          required
-        >
+        <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+        <select name="eventoId" value={form.eventoId} onChange={handleChange} required>
           <option value="">Seleccionar evento</option>
-          {eventos.map((evento) => (
-            <option key={evento.id} value={evento.id}>
-              {evento.nombre} ({evento.fecha})
-            </option>
+          {eventos.map(evento => (
+            <option key={evento.id} value={evento.id}>{evento.nombre} ({evento.fecha})</option>
           ))}
         </select>
         <button type="submit">Agregar Asistente</button>
@@ -127,8 +102,9 @@ const TablaAsistentes = () => {
           </tr>
         </thead>
         <tbody>
-          {asistentes.map((a) => {
-            const evento = eventos.find((ev) => ev.id === a.eventoId);
+          {asistentes.map(a => {
+            // Convertimos el eventoId a número para asegurar coincidencia
+            const evento = eventos.find(ev => ev.id === Number(a.eventoId));
             return (
               <tr key={a.id}>
                 <td>{a.id}</td>
@@ -136,9 +112,7 @@ const TablaAsistentes = () => {
                 <td>{a.email}</td>
                 <td>{evento ? evento.nombre : "Evento eliminado"}</td>
                 <td>
-                  <Button variant="danger" onClick={() => handleDelete(a.id)}>
-                    Eliminar
-                  </Button>
+                  <Button variant="danger" onClick={() => handleDelete(a.id)}>Eliminar</Button>
                 </td>
               </tr>
             );
