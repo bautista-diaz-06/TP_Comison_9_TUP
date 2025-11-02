@@ -1,5 +1,7 @@
 .actividades-list-container {
-  margin-top: 20px;
+  margin-top: 8px;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .actividades-list-container h3 {

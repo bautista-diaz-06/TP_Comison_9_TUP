@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import ActividadForm from "./ActividadForm";
 import ActividadesList from "./ActividadesList";
 
-function Actividades({ actividades, setActividades }) {
+function Actividades({ actividades, setActividades, onAdd, onUpdate, onDelete }) {
   const [actividadToEdit, setActividadToEdit] = useState(null);
 
-  const addActividad = (newActividad) => setActividades([...actividades, newActividad]);
+  const addActividad = (newActividad) => {
+    if (onAdd) return onAdd(newActividad);
+    setActividades([...actividades, newActividad]);
+  };
   const updateActividad = (updatedActividad) => {
-    setActividades(
-      actividades.map((a) => (a.id === updatedActividad.id ? updatedActividad : a))
-    );
+    if (onUpdate) return onUpdate(updatedActividad);
+    setActividades(actividades.map((a) => (a.id === updatedActividad.id ? updatedActividad : a)));
     setActividadToEdit(null);
   };
-  const deleteActividad = (id) => setActividades(actividades.filter((a) => a.id !== id));
+  const deleteActividad = (id) => {
+    if (onDelete) return onDelete(id);
+    setActividades(actividades.filter((a) => a.id !== id));
+  };
   const handleEdit = (actividad) => setActividadToEdit(actividad);
   const handleCancelEdit = () => setActividadToEdit(null);
 

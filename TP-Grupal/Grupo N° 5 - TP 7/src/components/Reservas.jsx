@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import ReservaForm from "./ReservaForm";
 import ReservasList from "./ReservasList";
 
-function Reservas({ socios, actividades, reservas, setReservas }) {
+function Reservas({ socios, actividades, reservas, setReservas, onAdd, onUpdate, onDelete }) {
   const [reservaToEdit, setReservaToEdit] = useState(null);
 
-  const addReserva = newReserva => setReservas([...reservas, newReserva]);
+  const addReserva = newReserva => {
+    if (onAdd) return onAdd(newReserva);
+    setReservas([...reservas, newReserva]);
+  };
   const updateReserva = updatedReserva => {
+    if (onUpdate) return onUpdate(updatedReserva);
     setReservas(reservas.map(r => (r.id === updatedReserva.id ? updatedReserva : r)));
     setReservaToEdit(null);
   };
-  const deleteReserva = id => setReservas(reservas.filter(r => r.id !== id));
+  const deleteReserva = id => {
+    if (onDelete) return onDelete(id);
+    setReservas(reservas.filter(r => r.id !== id));
+  };
   const handleEdit = reserva => setReservaToEdit(reserva);
   const handleCancelEdit = () => setReservaToEdit(null);
 

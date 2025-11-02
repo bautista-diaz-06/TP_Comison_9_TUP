@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 
 function Home() {
+   useEffect(() => {
+     document.body.classList.add('home-bg');
+     return () => document.body.classList.remove('home-bg');
+   }, []);
    const navigate = useNavigate();
 
   const handleStart = () => {
@@ -11,7 +15,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div className="overlay"></div>
+      
       <div className="content">
         <h1 className="titulo"> Bienvenido al Sistema de Gestión de Reservas</h1>
         <p className="descripcion">

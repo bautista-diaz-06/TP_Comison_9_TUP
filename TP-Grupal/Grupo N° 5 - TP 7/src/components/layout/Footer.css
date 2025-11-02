@@ -5,12 +5,8 @@
   padding: 1rem 0;
   font-size: 0.95rem;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
-  position: fixed; /* Cambiado de relative a fixed */
-  bottom: 0;
-  left: 0; /* Añadido */
-  right: 0; /* Añadido */
   width: 100%;
-  margin-top: auto; /* Añadido */
+  margin-top: auto;
 }
 
 .footer-content {

@@ -1,34 +1,39 @@
-# 🧾 Auditoría — Semana 2  
-### Grupo Nº: ___  
-### Tema asignado: ___  
-### Integrantes (Nombre completo + Legajo):
-- …
-- …
-- …
+# Auditoria - Semana 2
+Grupo N: 5  
+Tema asignado: TP 7  
+Integrantes (Carrascosa Suarez Francisco Eduardo - 61469):
+- ___
+- ___
+- ___
 
 ---
 
-## 1) RELEVAMIENTO — Antes de comenzar a trabajar
-
-Describir brevemente lo encontrado al abrir el proyecto:
-
-- Errores detectados (bugs, warnings, import fallidos, rutas rotas, etc.)
-- Faltantes respecto a Semana 1 (carpetas vacías, componentes incompletos, etc.)
-- Problemas de estructura, naming, uso de git o dependencias
-
-> Este apartado debe completarse **ANTES** de modificar el código.
+## REPORTE ANTES DE TRABAJAR
+Que encontraron (errores, bugs, omisiones, faltantes de la semana pasada):
+- Al ejecutar npm run dev no se inicia el proyecto
+- Las listas insertadas tanto en socios como en actividades aparecían en texto blanco y eran "invisibles"
+-La imagen de fondo del index no cubría el 100% del fondo
+-El footer al crear socios en la sección de gestión de socios tapaba las listas insertadas
+-Malas practicas en la sección de crear socio y crear actividad: no existía un select para seleccionar socios y actividades ya creadas
 
 ---
 
-## 2) SOLUCIONES IMPLEMENTADAS + NUEVO AGREGADO
+## REPORTE DE SOLUCIONES + NUEVO AGREGADO
+Que corrigieron + que añadieron de esta semana:
+- Se instalaron dependencias y ya funciona `npm run dev` 
+- Nuevos agregados de Semana 2: 
+- Se lograron todas las metas planteadas para la semana 2
+- Se hizo que el footer no tape el contenido del body en todo el proyecto
+-Se corrigieron todos los errores mencionados en el reporte previo al trabajo
+-Se modificó el css de los textos ya que eliminé el overlay que hacía muy poco estético el index y le puse sombras a los textos para que sean fáciles de leer (ya que si no tienen las sombras algunos textos se pierden en los colores del fondo)
+-Se añadió la api fake y funciona correctamente, el proyecto ahora funciona con dos terminales
 
-### ✅ Soluciones aplicadas a problemas detectados
-- …
+la primera funciona con: npm run dev
+la segunda funciona con: npm run server
 
-### ✅ Nuevos requerimientos de Semana 2 agregados
-- …
+los endpoints de json están en el puerto 3001 y son los siguientes:
 
----
-
-## Observaciones finales (opcional)
-- Comentarios sobre el flujo de trabajo, dificultades o acuerdos del equipo.
+  http://localhost:3001/users
+  http://localhost:3001/socios
+  http://localhost:3001/actividades
+  http://localhost:3001/reservas

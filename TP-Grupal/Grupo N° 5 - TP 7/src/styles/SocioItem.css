@@ -11,6 +11,7 @@
 .socio-item span {
   flex-grow: 1;
   margin-right: 1rem;
+  color: #000;
 }
 .socio-item div button {
   margin-left: 0.5rem; /* Separar los botones */
@@ -28,6 +29,7 @@
 .socio-item span {
   flex-grow: 1;
   margin-right: 1rem;
+  color: #000;
 }
 .socio-item div button {
   margin-left: 0.5rem; /* Separar los botones */
