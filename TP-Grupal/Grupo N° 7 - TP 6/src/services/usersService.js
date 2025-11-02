@@ -13,9 +13,3 @@ export const createUser = async (user) => {
   });
   return await res.json();
 };
-
-export const loginUser = async ({ email, password }) => {
-  const users = await getUsers();
-  const user = users.find((u) => u.email === email && u.password === password);
-  return user || null;
-};

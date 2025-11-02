@@ -1,58 +1,50 @@
-// src/pages/FormularioLogin.jsx
+// src/pages/FormularioRegistro.jsx
 import { useState } from "react";
 import { useUser } from "../hooks/useUser";
-import { Link } from "react-router-dom";
 
-const FormularioLogin = () => {
+const FormularioRegistro = () => {
   const [nombre, setNombre] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useUser(); // <-- tu hook actualizado con navigate
+const { register } = useUser();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const success = await login({ nombre, password });
-    if (!success) {
-      alert("Nombre o contraseña incorrectos");
-      setPassword("");
-    }
-    // si es exitoso, el navigate del hook redirige automáticamente
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const success = await register({ nombre, password });
+  if (!success) {
+    alert("Hubo un error al registrar el usuario");
+    setPassword("");
+  }
+  // no hace falta navigate aquí, lo hace el hook
+};
 
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="container-form">
-        <h3>Login</h3>
-
+        <h3>Registro</h3>
         <div>
           <h5>Nombre completo</h5>
           <input
             type="text"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            required
             placeholder="Ingresa tu nombre completo..."
+            required
           />
         </div>
-
         <div>
           <h5>Contraseña</h5>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
             placeholder="Ingresa tu contraseña..."
+            required
           />
         </div>
-
-        <button type="submit">Ingresar</button>
-
-        <p style={{ marginTop: "10px", textAlign: "center" }}>
-          ¿No tenés cuenta? <Link to="/registro">Registrate aquí</Link>
-        </p>
+        <button type="submit">Registrarse</button>
       </form>
     </div>
   );
 };
 
-export default FormularioLogin;
+export default FormularioRegistro;
