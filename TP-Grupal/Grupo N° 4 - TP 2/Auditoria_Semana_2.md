@@ -10,13 +10,41 @@
 
 ## 1) RELEVAMIENTO — Antes de comenzar a trabajar
 
-Describir brevemente lo encontrado al abrir el proyecto:
+Dashboard:
+1- La sección dashboard no es un dashboard.
 
-- Errores detectados (bugs, warnings, import fallidos, rutas rotas, etc.)
-- Faltantes respecto a Semana 1 (carpetas vacías, componentes incompletos, etc.)
-- Problemas de estructura, naming, uso de git o dependencias
+Pacientes:
+Vulnerabilidades encontradas en cuanto a imputs: 
 
-> Este apartado debe completarse **ANTES** de modificar el código.
+1- En el campo nombre se pueden introducir espacios que quedan guardados.
+
+2- No hay un limite de caracteres.
+
+3- No hay un eliminado de espacios.
+
+Medicos: 
+
+Encontramos las mismas vulnerabilidades que en pacientes.
+
+Turnos:
+
+1- En el campo paciente se puede introducir numeros.
+
+2- Podemos pedir turnos en fechas que ya pasaron.
+
+3- No hay limite para sacar fechas.
+
+4- Podemos ingresar cualquier horario, no se maneja con rangos de horas.
+
+5- En la edicion del turno tiene las mismas vulnerabilidades que en turnos en si.
+
+Estilos:
+
+1- Podemos encontrar estilos en los archivos css y jsx de una misma seccion a la vez lo cual a nuestro aprecer quizas no es una buena practica.
+
+Carpetas:
+
+1- Encontramos carpetas vacias en las cuales no encontramos utilidad alguna quiza para esta fase del tp. (dashboard, constantes, store, layout, endpoints, utils )
 
 ---
 
