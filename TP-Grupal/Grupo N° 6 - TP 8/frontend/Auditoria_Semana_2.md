@@ -1,3 +1,8 @@
+Perfecto 😄
+Acá tenés tu **auditoría actualizada** (versión final para entregar). Mantuve tu estructura original, pero integré todos los avances técnicos, estéticos y funcionales que mencionaste, corrigiendo redacción, coherencia y formato.
+
+---
+
 # 🧾 Auditoría — Semana 2
 
 ### Grupo Nº: 6
@@ -6,33 +11,31 @@
 
 ### Integrantes (Nombre completo + Legajo):
 
-- **Navarro, Víctor Leandro** — Legajo: _(completar)_
-- **Gallo, Genaro** — Legajo: _(completar)_
-- **Valdez del Pino, Tomás Manuel** — Legajo: _(completar)_
+- **Navarro, Víctor Leandro** — Legajo: 61550
+- **Gallo, Genaro** — Legajo: 61909
+- **Valdez del Pino, Tomás Manuel** — Legajo: 61447
 
 ---
 
 ## 1) RELEVAMIENTO — Antes de comenzar a trabajar
 
 **Descripción general del estado inicial:**
-Al abrir el proyecto, se encontró que la mayor parte del sistema solicitado aún no se encontraba implementada. Solo estaban presentes un **login** y un **registro** básicos, sin conexión a ningún backend real.
+Al abrir el proyecto, se observó que el sistema se encontraba en una etapa temprana de desarrollo. Existía un **login** y un **registro** funcionales de prueba, pero sin conexión a un backend real ni persistencia de datos sólida.
 
 **Errores detectados y observaciones:**
 
-- El login y registro guardan únicamente una variable `login` en `localStorage`, sin manejar usuarios reales ni autenticación segura.
-- No existe persistencia de datos ni estructura para donantes, productos o entregas.
-- El dashboard muestra **métricas falsas y hardcodeadas** en pantalla (datos estáticos mes a mes).
-- No hay formularios ni rutas que permitan registrar donaciones, productos o beneficiarios.
-- Faltan completamente los módulos principales: gestión de donantes, productos, entregas e historial.
-- La página principal muestra un “dashboard” con datos inventados, pero no cumple ninguna de las funcionalidades solicitadas.
-- No se detectaron errores graves en consola, aunque hay **carpetas vacías** y **componentes sin contenido**.
-- No hay trazabilidad de movimientos ni estructura para el envío de correos.
-- La organización de carpetas es mínima, sin división clara entre componentes, servicios o hooks.
-- Se usa **React Router DOM**, pero no existen **rutas protegidas** (cualquiera puede acceder si el localStorage contiene `"login": true"`).
-- No hay uso de ningún backend ni fake API, solo localStorage.
+- El login y el registro manejaban una variable `login` en `localStorage` sin autenticación real ni verificación de credenciales.
+- No existía persistencia de datos para donantes, productos o entregas más allá del almacenamiento local.
+- El dashboard mostraba **datos estáticos y falsos** (no provenientes de ninguna fuente real).
+- No existían formularios, CRUDs ni rutas para registrar donaciones, beneficiarios o productos.
+- No se habían implementado módulos clave: gestión de donantes, productos, beneficiarios ni entregas.
+- La estructura de carpetas era mínima, con varios componentes vacíos.
+- Se usaba React Router DOM, pero sin **rutas protegidas** (cualquier usuario podía acceder si el localStorage contenía `"login": true`).
+- No se encontró un backend ni fake API funcionando.
+- No había trazabilidad ni lógica de aprobación o rechazo de donaciones.
 
 **Resumen del estado inicial:**
-El proyecto está en una etapa muy temprana, con un esqueleto funcional básico de login/registro de prueba, pero sin ninguna implementación real de la gestión de donaciones.
+El proyecto presentaba solo un esqueleto básico funcional para el inicio de sesión y el registro, sin integración de backend ni lógica de negocio implementada.
 
 ---
 
@@ -40,38 +43,51 @@ El proyecto está en una etapa muy temprana, con un esqueleto funcional básico 
 
 ### ✅ Soluciones aplicadas a problemas detectados
 
-- Eliminación del uso de `localStorage` para manejar sesiones de prueba.
-- Sustitución de la lógica de login/register falsa por una estructura que permita trabajar con **JSON-Server** como backend simulado.
-- Reorganización mínima de carpetas para preparar el uso de **rutas protegidas** y futuros módulos de gestión.
-- Limpieza de componentes vacíos y archivos innecesarios.
-- Configuración base del entorno de **React Router DOM** para permitir navegación controlada.
-- Ajustes menores en el dashboard para evitar warnings y mejorar la lectura del código.
-
-### ✅ Nuevos requerimientos de Semana 2 agregados
-
-- Implementación de **JSON-Server** como base de datos local simulada para manejar donantes, productos y entregas.
-- Preparación de rutas y componentes iniciales para los siguientes módulos:
-
-  - **Registro de donantes**
-  - **Registro de productos**
-  - **Registro de entregas**
-  - **Historial por comedor o donante**
-
-- Creación de estructura inicial para **rutas protegidas** mediante verificación de sesión.
-- Adaptación del flujo de login y registro para interactuar con los endpoints del JSON-Server.
-- Planificación del módulo de **trazabilidad de movimientos** para su futura integración.
-- Documentación interna de los endpoints base (`/donantes`, `/productos`, `/entregas`).
+- Mantenimiento del uso de **localStorage** como mecanismo rápido de autenticación temporal, dado su utilidad en esta etapa del desarrollo.
+- Creación de **builders reutilizables** para tablas, formularios y modales, mejorando la estructura general del proyecto y facilitando la extensión de nuevas funcionalidades.
+- Estandarización de botones, formularios y componentes visuales para mejorar la coherencia del diseño.
+- Reorganización de carpetas para distinguir módulos de usuario, administrador, componentes y helpers.
+- Limpieza de código y eliminación de archivos vacíos o redundantes.
+- Preparación de base para conectar con un backend real en próximas semanas.
 
 ---
 
-## Observaciones finales (opcional)
+### ✅ Nuevos requerimientos y funcionalidades agregadas
 
-- El proyecto recibido presentaba un desarrollo inicial muy limitado, por lo que fue necesario replantear la estructura base antes de continuar.
-- Se decidió trabajar con **JSON-Server** en lugar de `localStorage` para lograr una simulación más realista de la persistencia de datos.
-- El equipo acordó distribuir tareas en base a los nuevos requerimientos:
+- Implementación de **builders dinámicos** de:
 
-  - **Navarro Víctor:** Configuración de JSON-Server, rutas y autenticación.
-  - **Gallo Genaro:** Componentes de registro y formularios.
-  - **Valdez del Pino Tomás:** Estilos y diseño del dashboard funcional.
+  - **Tablas:** para listar y administrar donantes, beneficiarios y entregas.
+  - **Formularios:** para el login, registro y creación de entidades.
+  - **Modales:** reutilizables en múltiples contextos (alta, edición, confirmaciones).
 
-- El flujo de trabajo se centrará en completar los módulos faltantes y asegurar que todas las operaciones (crear, listar, asignar, entregar) estén conectadas al backend simulado.
+- Integración de estos builders tanto en el **usuario común** como en el **administrador**:
+
+  - **Usuario:**
+
+    - Puede donar a cualquier beneficiario (o comedor).
+    - Accede a un **historial completo de donaciones** realizadas.
+
+  - **Administrador:**
+
+    - CRUD completo de **usuarios** y **beneficiarios**.
+    - Gestión de **donaciones** y **entregas**, con posibilidad de **aprobar o rechazar** cada una.
+
+- Estilo visual completamente renovado con **temática anime**, utilizando el color **“peru”** como tono principal y fondos animados con intros y endings representativos:
+
+  - 🧡 En la pantalla de autenticación (**login/register**) se usa el **Ending 2 de Kobayashi-san no Maid Dragon**, conocido en la comunidad otaku.
+  - 💚 En la interfaz de **usuario** se utiliza **Uragimono no Requiem** (_JoJo’s Bizarre Adventure_).
+  - 💙 En la interfaz de **administrador**, el fondo es **Stone Ocean** (_JoJo’s Bizarre Adventure Part 6_).
+
+---
+
+## 3) RESULTADOS ACTUALES Y PLANES FUTUROS
+
+- El sistema se encuentra actualmente **plenamente funcional** en sus módulos base: autenticación, donaciones, historial y panel administrativo.
+- Se logró una estructura modular y visualmente atractiva.
+- Se detectaron limitaciones en el manejo de **IDs con JSON-Server**, ya que su formato puede resultar incómodo para gestionar relaciones entre entidades (donante ↔ beneficiario ↔ entrega).
+
+## Observaciones finales
+
+El proyecto evolucionó de un prototipo básico a un sistema funcional con múltiples módulos, estética cuidada y componentes reutilizables.
+El grupo demostró una mejora técnica constante, aplicando buenas prácticas de React y diseño moderno.
+Se prevé que, con la integración del backend real, el sistema alcance un nivel de madurez muy cercano a un entorno de producción.
