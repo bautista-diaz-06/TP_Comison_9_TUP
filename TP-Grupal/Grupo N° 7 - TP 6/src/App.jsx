@@ -1,5 +1,5 @@
-// src/App.jsx
-import './App.css';
+// src/styles/App.jsx
+import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
 import FormularioLogin from './pages/FormularioLogin';

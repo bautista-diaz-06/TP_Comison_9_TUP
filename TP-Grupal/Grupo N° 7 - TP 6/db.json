@@ -44,6 +44,26 @@
       "id": "1220",
       "nombre": "camilita",
       "password": "oso"
+    },
+    {
+      "id": "3855",
+      "nombre": "Sol",
+      "password": "123"
+    },
+    {
+      "id": "0523",
+      "nombre": "sol",
+      "password": "123"
+    },
+    {
+      "id": "97d8",
+      "nombre": "sol",
+      "password": "123"
+    },
+    {
+      "id": "3ee8",
+      "nombre": "sol",
+      "password": "123"
     }
   ],
   "eventos": [
