@@ -1,10 +1,10 @@
 import Login from "../components/Login";
 
-const LoginPage = ({setLogueado}) => {
+const LoginPage = () => {
     return (
         <>
 
-            <Login setLogueado={setLogueado} />
+            <Login  />
 
         </>
     )

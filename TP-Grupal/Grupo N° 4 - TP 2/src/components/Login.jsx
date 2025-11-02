@@ -1,35 +1,23 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import '../Styles/Login.css';
+import {useAuth} from '../hook/useAuth';
+import { Link } from 'react-router-dom';
 
-export default function Login({ setLogueado }) {
+export default function Login() {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const {handleLogin, error} = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-    const usuarioEncontrado = usuarios.find(
-      (u) => u.usuario === usuario && u.password === password
-    );
-
-    if (usuarioEncontrado) {
-      localStorage.setItem('usuarioActual', JSON.stringify(usuario));
-      localStorage.setItem('logueado', true);
-      setLogueado(true);
-      navigate('/inicio');
-    } else {
-      alert('Usuario o contraseña incorrectos');
-    }
-  };
-
+    await handleLogin({usuario, password});
+  
+  }
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Iniciar Sesión</h2>
+         {error && <Alert variant="danger">{error}</Alert>}
 
         <label>Usuario</label>
         <input
