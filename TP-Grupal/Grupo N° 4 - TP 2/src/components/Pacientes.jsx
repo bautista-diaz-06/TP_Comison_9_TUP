@@ -70,6 +70,7 @@ export default function Pacientes() {
         <input
           type="text"
           value={nombre}
+          maxLength={30}
           onChange={(e) => setNombre(e.target.value)}
           placeholder="Nombre del paciente"
         />
@@ -78,6 +79,7 @@ export default function Pacientes() {
         <input
           type="email"
           value={email}
+          maxLength={32}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Correo electrónico"
         />

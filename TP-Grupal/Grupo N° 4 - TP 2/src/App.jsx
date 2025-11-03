@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/Navbar';
-import LoginPage from './pages/LoginPage';
-import RegistroPage from './pages/RegistroPage';
-import InicioPage from './pages/InicioPage';
-import PacientesPage from './pages/PacientesPage';
-import MedicosPage from './pages/MedicosPage';
-import TurnosPage from './pages/TurnosPage';
-import './Styles/app.css';
-import { HOME, LOGIN, MEDICOS, PACIENTES, REGISTER, TURNOS } from './router/HomePage.routes';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import NavBar from "./components/Navbar";
+import LoginPage from "./pages/LoginPage";
+import RegistroPage from "./pages/RegistroPage";
+import InicioPage from "./pages/InicioPage";
+import PacientesPage from "./pages/PacientesPage";
+import MedicosPage from "./pages/MedicosPage";
+import TurnosPage from "./pages/TurnosPage";
+import "./Styles/app.css";
+import { HOME, LOGIN, MEDICOS, PACIENTES, REGISTER, TURNOS } from "./router/HomePage.routes";
 
 function App() {
   const [logueado, setLogueado] = useState(() => {
-    return JSON.parse(localStorage.getItem('logueado')) || false;
+    return JSON.parse(localStorage.getItem("logueado")) || false;
   });
 
   useEffect(() => {
-    localStorage.setItem('logueado', JSON.stringify(logueado));
+    localStorage.setItem("logueado", JSON.stringify(logueado));
   }, [logueado]);
 
   return (
@@ -26,30 +26,27 @@ function App() {
       <Routes>
         <Route
           path={LOGIN}
-          element={logueado ? <Navigate to={"/inicio"} /> : <LoginPage setLogueado={setLogueado} />}
+          element={logueado ? <Navigate to={HOME} /> : <LoginPage setLogueado={setLogueado} />}
         />
         <Route
           path={REGISTER}
-          element={logueado ? <Navigate to="/inicio" /> : <RegistroPage />}
+          element={logueado ? <Navigate to={HOME} /> : <RegistroPage />}
         />
-        <Route
-          path={HOME}
-          element={logueado ? <InicioPage /> : <Navigate to="/login" />}
-        />
-        <Route
-          path={PACIENTES}
-          element={logueado ? <PacientesPage /> : <Navigate to="/login" />}
-        />
-        <Route
-          path={MEDICOS}
-          element={logueado ? <MedicosPage /> : <Navigate to="/login" />}
-        />
+        <Route 
+        path={HOME} 
+        element={logueado ? <InicioPage /> : <Navigate to={LOGIN} />} />
 
-        <Route
-          path={TURNOS}
-          element={logueado ? <TurnosPage /> : <Navigate to="/login" />}
-        />
+        <Route 
+        path={PACIENTES} 
+        element={logueado ? <PacientesPage /> : <Navigate to={LOGIN} />} />
 
+        <Route 
+        path={MEDICOS} 
+        element={logueado ? <MedicosPage /> : <Navigate to={LOGIN} />} />
+
+        <Route 
+        path={TURNOS} 
+        element={logueado ? <TurnosPage /> : <Navigate to={LOGIN} />} />
       </Routes>
     </Router>
   );

@@ -50,13 +50,22 @@ Carpetas:
 
 ## 2) SOLUCIONES IMPLEMENTADAS + NUEVO AGREGADO
 
-### ✅ Soluciones aplicadas a problemas detectados
-- …
+1- Solucionamos la vulnerabilidad de los input
+
+2- Creamos componentes para tener una mayor modularidad, diviendo en components y pages
+
+3- Aplicamos la logica de Login que valida usuarios a traves de db.json
+
+4- Quitamos todos los estilos que se encontraban sueltos en Components y los pasamos a un .css
 
 ### ✅ Nuevos requerimientos de Semana 2 agregados
-- …
 
----
+1- axios
+
+2- dotenv
 
 ## Observaciones finales (opcional)
-- Comentarios sobre el flujo de trabajo, dificultades o acuerdos del equipo.
+
+Los unicos inconvenientes que ocurrieron en el flujo de trabajo fueron algunos problemas con git pero nada mas.
+
+Quizas en cuanto estetica y experiencia de usuario puede ser mejorada la pagina pero decidimos no tocar ya que eso es un criterio personal.

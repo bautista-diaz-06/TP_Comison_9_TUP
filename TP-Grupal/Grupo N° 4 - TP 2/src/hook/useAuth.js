@@ -4,29 +4,32 @@ import { useNavigate } from "react-router-dom";
 import { HOME } from "../router/HomePage.routes";
 
 export const useAuth = () => {
-    const [user, setUser] = useState(null);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    const handleLogin = async (credentials) => {
-        try {
-                    const res = await login(credentials);
-            const userData = res.find(item => item.email === credentials.email && 
-                item.password === credentials.password);
+  const handleLogin = async (credentials) => {
+    try {
+      const usuarios = await login();
 
-           if(!userData){
-            throw new Error("Credenciales invalidas");
-           }
+      const userData = usuarios.find(
+        (u) =>
+          u.usuario === credentials.usuario &&
+          u.password === credentials.password
+      );
 
-            // Guardar usuario en el estado y localStorage
-            setUser(userData);
-            localStorage.setItem('user', JSON.stringify(userData));
-            
-            navigate(HOME);
-                    
-                } catch (err) {
-                    setError(err.message);
-                }
-            };
-            return { user, error, handleLogin };
-        };
+      if (!userData) throw new Error("Credenciales inválidas");
+
+      // Guardar usuario en estado y localStorage
+      setUser(userData);
+      localStorage.setItem("usuario", JSON.stringify(userData));
+      localStorage.setItem("logueado", JSON.stringify(true));
+
+      navigate(HOME);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return { user, error, handleLogin };
+};

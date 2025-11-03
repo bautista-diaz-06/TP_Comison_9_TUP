@@ -65,6 +65,7 @@ export default function TurnosPage() {
         <input
           type="text"
           placeholder="Paciente"
+          maxLength={30}
           value={nuevoTurno.paciente}
           onChange={(e) => setNuevoTurno({ ...nuevoTurno, paciente: e.target.value })}
         />
@@ -81,6 +82,7 @@ export default function TurnosPage() {
         <input
           type="text"
           placeholder="Especialidad"
+          maxLength={20}
           value={nuevoTurno.especialidad}
           onChange={(e) => setNuevoTurno({ ...nuevoTurno, especialidad: e.target.value })}
         />

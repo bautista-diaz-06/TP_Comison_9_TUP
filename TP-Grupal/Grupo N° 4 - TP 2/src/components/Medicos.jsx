@@ -71,6 +71,7 @@ export default function Medicos() {
         <input
           type="text"
           value={nombre}
+          maxLength={30}
           onChange={(e) => setNombre(e.target.value)}
           placeholder="Nombre del médico"
         />
@@ -79,6 +80,7 @@ export default function Medicos() {
         <input
           type="text"
           value={especialidad}
+          maxLength={20}
           onChange={(e) => setEspecialidad(e.target.value)}
           placeholder="Especialidad"
         />
