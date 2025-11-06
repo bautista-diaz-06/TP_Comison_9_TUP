@@ -5,18 +5,18 @@
 /* -------------------------
    🔤 Importación de fuente
 -------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 /* -------------------------
    🎨 Variables globales
 -------------------------- */
 :root {
-  --color-bg: #0a0a0a;
-  --color-bg-alt: #111;
-  --color-surface: rgba(20, 20, 20, 0.85);
-  --color-text: #f5f5f5;
-  --color-accent: #00ff7f;
-  --color-accent-light: #00ffaa;
+  --color-bg: #060806; /* deeper background for elegance */
+  --color-bg-alt: #0f120f;
+  --color-surface: rgba(18, 20, 18, 0.82);
+  --color-text: #f3f6f4;
+  --color-accent: #24e08a; /* slightly softer neon green */
+  --color-accent-light: #7af7b6;
   --color-border: rgba(255, 255, 255, 0.08);
   --transition: all 0.3s ease;
   --radius: 20px;

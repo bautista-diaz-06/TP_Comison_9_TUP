@@ -42,15 +42,17 @@
 
 .formauth img {
   width: 100%;
-  max-width: 180px;
-  border-radius: 100px;
+  max-width: 160px;
+  border-radius: 48px;
   object-fit: contain;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, opacity 0.28s ease;
+  box-shadow: 0 6px 22px rgba(36, 224, 138, 0.08);
 }
 
 .formauth img:hover {
-  transform: scale(1.5);
+  transform: scale(1.15);
   cursor: pointer;
+  box-shadow: 0 10px 40px rgba(36, 224, 138, 0.15);
 }
 
 .formauth h1 {
