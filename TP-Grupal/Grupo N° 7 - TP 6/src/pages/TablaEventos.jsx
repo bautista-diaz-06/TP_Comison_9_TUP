@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Header from "../components/Header";
+import { getEventos, createEvento, updateEvento, deleteEvento } from "../services/eventosService";
+import { getArtistas } from "../services/artistasService";
+import { getAsistentes } from "../services/asistentesService";
 
 const TablaEventos = () => {
   const [eventos, setEventos] = useState([]);
@@ -13,40 +16,48 @@ const TablaEventos = () => {
   const [asistentes, setAsistentes] = useState([]);
 
   useEffect(() => {
-    const storedEventos = JSON.parse(localStorage.getItem("eventos")) || [];
-    setEventos(storedEventos);
-    const storedArtistas = JSON.parse(localStorage.getItem("artistas")) || [];
-    setArtistas(storedArtistas);
-    const storedAsistentes = JSON.parse(localStorage.getItem("asistentes")) || [];
-    setAsistentes(storedAsistentes);
+    const fetchData = async () => {
+      try {
+        const dataEventos = await getEventos();
+        const dataArtistas = await getArtistas();
+        const dataAsistentes = await getAsistentes();
+        setEventos(dataEventos);
+        setArtistas(dataArtistas);
+        setAsistentes(dataAsistentes);
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+      }
+    };
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("eventos", JSON.stringify(eventos));
-  }, [eventos]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.nombre || !form.fecha || !form.lugar || !form.cupo) return;
 
-    if (editandoId !== null) {
-      const eventosActualizados = eventos.map((evento) =>
-        evento.id === editandoId ? { ...evento, ...form } : evento
-      );
-      setEventos(eventosActualizados);
-      setEditandoId(null);
-    } else {
-      const nuevoEvento = {
-        id: eventos.length > 0 ? Math.max(...eventos.map((e) => e.id)) + 1 : 1,
-        ...form,
-        artistas: [],
-      };
-      setEventos([...eventos, nuevoEvento]);
-    }
+    const nuevoEvento = {
+      nombre: form.nombre,
+      fecha: form.fecha,
+      lugar: form.lugar,
+      cupo: parseInt(form.cupo),
+      artistas: [],
+    };
 
-    setForm({ nombre: "", fecha: "", lugar: "", cupo: "" });
+    try {
+      if (editandoId !== null) {
+        const actualizado = await updateEvento(editandoId, { ...nuevoEvento, artistas: eventos.find(ev => ev.id === editandoId).artistas });
+        setEventos(eventos.map(ev => ev.id === editandoId ? actualizado : ev));
+        setEditandoId(null);
+      } else {
+        const creado = await createEvento(nuevoEvento);
+        setEventos([...eventos, creado]);
+      }
+      setForm({ nombre: "", fecha: "", lugar: "", cupo: "" });
+    } catch (error) {
+      console.error("Error al guardar evento:", error);
+    }
   };
 
   const handleEdit = (id) => {
@@ -58,13 +69,17 @@ const TablaEventos = () => {
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const confirm = window.confirm("¿Seguro que querés eliminar este evento?");
     if (!confirm) return;
-    setEventos(eventos.filter((e) => e.id !== id));
+    try {
+      await deleteEvento(id);
+      setEventos(eventos.filter((e) => e.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar evento:", error);
+    }
   };
 
-  // Asociar artistas
   const handleAsociar = (eventoId) => {
     setAsociarArtistasId(eventoId);
     const evento = eventos.find((e) => e.id === eventoId);
@@ -73,33 +88,28 @@ const TablaEventos = () => {
 
   const toggleArtista = (artistaId) => {
     setSelectedArtistas((prev) =>
-      prev.includes(artistaId)
-        ? prev.filter((id) => id !== artistaId)
-        : [...prev, artistaId]
+      prev.includes(artistaId) ? prev.filter((id) => id !== artistaId) : [...prev, artistaId]
     );
   };
 
-  const guardarArtistas = () => {
-    const updatedEventos = eventos.map((e) =>
-      e.id === asociarArtistasId ? { ...e, artistas: selectedArtistas } : e
-    );
-    setEventos(updatedEventos);
-    setAsociarArtistasId(null);
+  const guardarArtistas = async () => {
+    try {
+      const evento = eventos.find(e => e.id === asociarArtistasId);
+      const actualizado = await updateEvento(asociarArtistasId, { ...evento, artistas: selectedArtistas });
+      setEventos(eventos.map(ev => ev.id === asociarArtistasId ? actualizado : ev));
+      setAsociarArtistasId(null);
+    } catch (error) {
+      console.error("Error al asociar artistas:", error);
+    }
   };
 
-  // Calcular cupos ocupados
-  const cuposOcupados = (eventoId) =>
-    asistentes.filter((a) => a.eventoId === eventoId).length;
+  const cuposOcupados = (eventoId) => asistentes.filter((a) => a.eventoId === eventoId).length;
 
   return (
     <div>
       <Header />
-
       {/* Formulario */}
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginTop: "100px" }}
-      >
+      <form onSubmit={handleSubmit} style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginTop: "100px" }}>
         <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} required />
         <input type="date" name="fecha" value={form.fecha} onChange={handleChange} required />
         <input type="text" name="lugar" placeholder="Lugar" value={form.lugar} onChange={handleChange} required />
@@ -135,11 +145,7 @@ const TablaEventos = () => {
                 <td>{e.cupo}</td>
                 <td>{ocupados}</td>
                 <td>{disponible >= 0 ? disponible : 0}</td>
-                <td>
-                  {e.artistas.length > 0
-                    ? artistas.filter((a) => e.artistas.includes(a.id)).map((a) => a.nombre).join(", ")
-                    : "—"}
-                </td>
+                <td>{e.artistas.length > 0 ? artistas.filter(a => e.artistas.includes(a.id)).map(a => a.nombre).join(", ") : "—"}</td>
                 <td className="d-flex gap-2">
                   <Button variant="primary" onClick={() => handleEdit(e.id)}>Editar</Button>
                   <Button variant="danger" onClick={() => handleDelete(e.id)}>Eliminar</Button>
@@ -151,18 +157,13 @@ const TablaEventos = () => {
         </tbody>
       </Table>
 
-      {/* Sección de asociación de artistas */}
+      {/* Asociación de artistas */}
       {asociarArtistasId && (
         <div style={{ width: "50%", margin: "20px auto", padding: "10px", border: "1px solid #ccc" }}>
           <h5>Seleccionar artistas para el evento</h5>
           {artistas.map((a) => (
             <div key={a.id}>
-              <input
-                type="checkbox"
-                checked={selectedArtistas.includes(a.id)}
-                onChange={() => toggleArtista(a.id)}
-              />{" "}
-              {a.nombre} ({a.tipo})
+              <input type="checkbox" checked={selectedArtistas.includes(a.id)} onChange={() => toggleArtista(a.id)} /> {a.nombre} ({a.tipo})
             </div>
           ))}
           <Button variant="success" onClick={guardarArtistas} style={{ marginTop: "10px" }}>Guardar</Button>

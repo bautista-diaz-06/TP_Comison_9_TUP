@@ -1,52 +1,58 @@
-import { useState } from 'react'
+// src/pages/FormularioLogin.jsx
+import { useState } from "react";
+import { useUser } from "../hooks/useUser";
+import { Link } from "react-router-dom";
 
 const FormularioLogin = () => {
-    const [nombre, setNombre] = useState("")
-    const [contraseña, setContraseña] = useState("")
+  const [nombre, setNombre] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useUser(); // <-- tu hook actualizado con navigate
 
-    const handleChangeName = (e) => {
-        setNombre(e.target.value) //obtiene el valor del input nombre
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login({ nombre, password });
+    if (!success) {
+      alert("Nombre o contraseña incorrectos");
+      setPassword("");
     }
-
-    const handleChangePassword = (e) => {
-        setContraseña(e.target.value) //obtiene el valor del input contraseña
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        localStorage.setItem("nombre", JSON.stringify(nombre)) //guarda el nombre en el navegador
-        localStorage.setItem("constraseña", JSON.stringify(contraseña)) //guarda la contraseña en el navegador
-        
-        window.location.href = "/tabla-eventos" //se podria usar el Hook "useNavigate" pero no lo vimos
-    }
+    // si es exitoso, el navigate del hook redirige automáticamente
+  };
 
   return (
-    <div className='login-container'>
-        <form onSubmit={handleSubmit} className='container-form'> 
-              <h3>Login</h3>
-              <div>
-                <h5>Nombre y Apellido</h5>
-                  <input
-                    type="text"
-                    onChange={handleChangeName}
-                    required
-                    placeholder='Ingresa tu nombre completo...' />
-              </div>
-              
-              <div>
-                <h5>Contraseña</h5>
-                  <input
-                    type="password"
-                    onChange={handleChangePassword}
-                    required
-                    placeholder='Ingresa tu contraseña...' />
-              </div>
-            
-              <button type='submit'>Ingresar</button>
-        </form>
-    </div>
-  )
-}
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="container-form">
+        <h3>Login</h3>
 
-export default FormularioLogin
+        <div>
+          <h5>Nombre completo</h5>
+          <input
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+            placeholder="Ingresa tu nombre completo..."
+          />
+        </div>
+
+        <div>
+          <h5>Contraseña</h5>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Ingresa tu contraseña..."
+          />
+        </div>
+
+        <button type="submit">Ingresar</button>
+
+        <p style={{ marginTop: "10px", textAlign: "center" }}>
+          ¿No tenés cuenta? <Link to="/registro">Registrate aquí</Link>
+        </p>
+      </form>
+    </div>
+  );
+};
+
+export default FormularioLogin;
