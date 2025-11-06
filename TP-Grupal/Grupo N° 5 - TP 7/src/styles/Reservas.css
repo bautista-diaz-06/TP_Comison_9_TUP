@@ -22,6 +22,12 @@
   font-size: 1rem;
 }
 
+/* Forzar mismo estilo de selects/inputs */
+.reservas-form .input-field {
+  background-color: #fff;
+  color: #000;
+}
+
 .form-actions {
   display: flex;
   gap: 0.5rem;
@@ -51,6 +57,7 @@
   margin-bottom: 0.5rem;
   background-color: #fff;
   transition: transform 0.2s ease;
+  color: #000;
 }
 
 .reserva-item:hover {
@@ -61,6 +68,7 @@
 .reserva-info span {
   display: block;
   margin-bottom: 0.3rem;
+  color: #000;
 }
 
 .btn-group button {

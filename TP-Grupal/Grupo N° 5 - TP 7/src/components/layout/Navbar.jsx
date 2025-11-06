@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome,FaUser, FaDumbbell, FaCalendarCheck, FaHistory, FaBars } from "react-icons/fa";
 import "./Navbar.css";
+import { useAuth } from "../../context/AuthContext";
 
 function SidebarNavbar() {
   const [collapsed, setCollapsed] = useState(false);
+  const { user, logout } = useAuth();
 
   const toggleSidebar = () => setCollapsed(!collapsed);
 
@@ -32,6 +34,13 @@ function SidebarNavbar() {
         <NavLink to="/historial" className="nav-link">
           <FaHistory className="nav-icon" /> <span className="link-text">Historial</span>
         </NavLink>
+        {user ? (
+          <button className="nav-link" onClick={logout} style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}>
+            Salir
+          </button>
+        ) : (
+          <NavLink to="/login" className="nav-link">Ingresar</NavLink>
+        )}
       </nav>
     </div>
   );
