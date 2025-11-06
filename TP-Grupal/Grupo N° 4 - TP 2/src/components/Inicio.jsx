@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import '../Styles/Dashboard.css';
+import "../Styles/Dashboard.css";
 
-export default function Dashboard() {
+export default function Inicio() {
   return (
     <div className="dashboard-container">
-      <h2>Dashboard</h2>
+      <h2>Inicio</h2>
 
       <div className="dashboard-cards">
         <div className="dashboard-card">
