@@ -6,7 +6,7 @@ function Actividades({ actividades, setActividades, onAdd, onUpdate, onDelete })
   const [actividadToEdit, setActividadToEdit] = useState(null);
 
   const addActividad = (newActividad) => {
-    if (onAdd) return onAdd(newActividad);
+    if (onAdd) return onAdd(newActividad)
     setActividades([...actividades, newActividad]);
   };
   const updateActividad = (updatedActividad) => {

@@ -10,7 +10,7 @@ function Home() {
    const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate("/socios"); //  redirige a la ruta de socios
+    navigate("/socios") //  redirige a la ruta de socios
   };
 
   return (

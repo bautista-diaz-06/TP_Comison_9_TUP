@@ -6,9 +6,9 @@ import "../styles/SocioForm.css";
 function SocioForm({ onAddSocio, onUpdateSocio, socioToEdit, onCancelEdit }) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [email, setEmail] = useState("");
-  const [rol, setRol] = useState("socio");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("")
+  const [rol, setRol] = useState("socio")
+  const [error, setError] = useState("")
 
   useEffect(() => {
     if (socioToEdit) {

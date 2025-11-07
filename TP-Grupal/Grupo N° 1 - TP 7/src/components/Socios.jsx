@@ -10,16 +10,16 @@ function Socios({ socios, setSocios, onAdd, onUpdate, onDelete }) {
     setSocios([...socios, newSocio]);
   };
   const updateSocio = (updatedSocio) => {
-    if (onUpdate) return onUpdate(updatedSocio);
-    setSocios(socios.map((s) => (s.id === updatedSocio.id ? updatedSocio : s)));
-    setSocioToEdit(null);
+    if (onUpdate) return onUpdate(updatedSocio)
+    setSocios(socios.map((s) => (s.id === updatedSocio.id ? updatedSocio : s)))
+    setSocioToEdit(null)
   };
   const deleteSocio = (id) => {
-    if (onDelete) return onDelete(id);
-    setSocios(socios.filter((s) => s.id !== id));
+    if (onDelete) return onDelete(id)
+    setSocios(socios.filter((s) => s.id !== id))
   };
-  const handleEdit = (socio) => setSocioToEdit(socio);
-  const handleCancelEdit = () => setSocioToEdit(null);
+  const handleEdit = (socio) => setSocioToEdit(socio)
+  const handleCancelEdit = () => setSocioToEdit(null)
 
   return (
     <div className="page-container">

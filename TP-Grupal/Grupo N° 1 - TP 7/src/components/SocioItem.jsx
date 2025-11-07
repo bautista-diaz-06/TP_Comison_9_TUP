@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "./common/Button";
-import "../styles/SocioItem.css";
+import Button from "./common/Button"
+import "../styles/SocioItem.css"
 
 function SocioItem({ socio, onDelete, onEdit }) {
   const nombre = [socio?.nombre, socio?.apellido].filter(Boolean).join(" ") || "Sin nombre";

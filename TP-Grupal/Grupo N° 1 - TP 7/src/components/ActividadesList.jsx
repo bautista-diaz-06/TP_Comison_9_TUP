@@ -4,7 +4,7 @@ import "../styles/ActivadadesList.css";
 
 function ActividadesList({ actividades, onEditActividad, onDeleteActividad }) {
   if (!actividades || actividades.length === 0) {
-    return <p>No hay actividades registradas.</p>;
+    return <p>No hay actividades registradas.</p>
   }
 
   return (

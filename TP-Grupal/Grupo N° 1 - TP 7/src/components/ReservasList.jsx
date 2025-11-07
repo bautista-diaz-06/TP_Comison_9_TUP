@@ -2,7 +2,7 @@ import React from "react";
 import ReservaItem from "./ReservaItem";
 
 function ReservasList({ reservas, onDeleteReserva, onEditReserva }) {
-  if (!reservas || reservas.length === 0) return <p>No hay reservas registradas.</p>;
+  if (!reservas || reservas.length === 0) return <p>No hay reservas registradas.</p>
 
   return (
     <div className="reservas-list-container">

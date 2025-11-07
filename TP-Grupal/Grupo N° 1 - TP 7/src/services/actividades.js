@@ -1,4 +1,4 @@
-import { get, post, put, del } from './api';
+import { get, post, put, del } from './api'
 
 const base = '/actividades';
 export const fetchActividades = () => get(base);

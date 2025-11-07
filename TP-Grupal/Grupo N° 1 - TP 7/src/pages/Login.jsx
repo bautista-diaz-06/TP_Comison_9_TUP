@@ -12,7 +12,7 @@ export default function Login() {
   if (user) return <Navigate to="/" replace />;
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     setError('');
     try {
       await login(email, password);

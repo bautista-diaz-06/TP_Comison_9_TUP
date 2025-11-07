@@ -3,7 +3,7 @@ import ReservaForm from "./ReservaForm";
 import ReservasList from "./ReservasList";
 
 function Reservas({ socios, actividades, reservas, setReservas, onAdd, onUpdate, onDelete }) {
-  const [reservaToEdit, setReservaToEdit] = useState(null);
+  const [reservaToEdit, setReservaToEdit] = useState(null)
 
   const addReserva = newReserva => {
     if (onAdd) return onAdd(newReserva);

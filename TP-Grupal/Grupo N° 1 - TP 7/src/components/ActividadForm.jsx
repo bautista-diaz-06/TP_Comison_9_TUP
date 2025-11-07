@@ -4,7 +4,7 @@ import "../styles/ActividadForm.css";
 
 function ActividadForm({ onAddActividad, onUpdateActividad, actividadToEdit, onCancelEdit }) {
   const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [descripcion, setDescripcion] = useState("")
   const [error, setError] = useState("");
 
   useEffect(() => {

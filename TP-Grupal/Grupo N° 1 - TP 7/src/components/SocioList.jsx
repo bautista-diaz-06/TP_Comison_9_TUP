@@ -4,7 +4,7 @@ import "../styles/SociosList.css";
 
 function SociosList({ socios, onDeleteSocio, onEditSocio }) {
   if (!socios || socios.length === 0) {
-    return <p>No hay socios registrados.</p>;
+    return <p>No hay socios registrados.</p>
   }
 
   return (

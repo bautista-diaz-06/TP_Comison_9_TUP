@@ -3,7 +3,7 @@ import "../styles/Historial.css";
 
 function Historial({ reservas }) {
   if (reservas.length === 0) {
-    return <p className="empty-message">No hay reservas registradas aún.</p>;
+    return <p className="empty-message">No hay reservas registradas aún.</p>
   }
 
   return (

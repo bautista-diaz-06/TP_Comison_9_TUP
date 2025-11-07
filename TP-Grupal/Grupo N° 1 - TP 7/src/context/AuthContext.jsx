@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   async function login(email, password) {
     const u = await doLogin(email, password);
     setUser(u);
-    localStorage.setItem('auth_user', JSON.stringify(u));
+    localStorage.setItem('auth_user', JSON.stringify(u))
   }
 
   function logout() {

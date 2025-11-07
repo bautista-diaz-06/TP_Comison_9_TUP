@@ -14,7 +14,7 @@ export default function useApi(asyncFn) {
     } catch (e) {
       setError(e);
       setLoading(false);
-      throw e;
+      throw e
     }
   }, [asyncFn]);
 

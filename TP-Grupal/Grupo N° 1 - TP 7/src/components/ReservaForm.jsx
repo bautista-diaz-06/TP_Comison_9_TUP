@@ -3,15 +3,15 @@ import Button from "../components/common/Button";
 import "../styles/Reservas.css";
 
 function ReservasForm({ socios = [], actividades = [], onAddReserva, onUpdateReserva, reservaToEdit, onCancelEdit }) {
-  const [socio, setSocio] = useState("");
+  const [socio, setSocio] = useState("")
   const [actividad, setActividad] = useState("");
   const [fecha, setFecha] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (reservaToEdit) {
-      setSocio(reservaToEdit.socio);
-      setActividad(reservaToEdit.actividad);
+      setSocio(reservaToEdit.socio)
+      setActividad(reservaToEdit.actividad)
       setFecha(reservaToEdit.fecha);
     } else {
       setSocio("");
