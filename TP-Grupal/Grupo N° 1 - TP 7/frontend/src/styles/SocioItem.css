@@ -14,7 +14,7 @@
   color: #000;
 }
 .socio-item div button {
-  margin-left: 0.5rem; /* Separar los botones */
+  margin-left: 0.5rem /* Separar los botones */
 }
 .socio-item {
   display: flex;

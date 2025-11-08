@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "../components/common/Button";
+import Button from "./common/Button";
 import "../styles/Reservas.css";
 
 function ReservasForm({ socios = [], actividades = [], onAddReserva, onUpdateReserva, reservaToEdit, onCancelEdit }) {
