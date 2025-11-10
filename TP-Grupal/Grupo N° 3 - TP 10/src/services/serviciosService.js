@@ -1,3 +1,7 @@
+import { get, post, del } from "../api.js";
+
+// ======= Simulación (DESACTIVADO) =======
+/*
 // Simulación de servicios
 let servicios = [
   { id: 1, nombre: "Corte", duracion_minutos: 60, precio: 70000 },
@@ -30,3 +34,27 @@ export const eliminarServicio = async (id) => {
   servicios = servicios.filter(s => s.id !== id);
   return true;
 };
+*/
+
+// ======= IMPLEMENTACIÓN REAL (usa backend) =======
+// Estas funciones llaman al backend en http://localhost:3001 (API base en src/api.js)
+export const fetchServicios = async () => {
+  return await get("/servicios");
+};
+
+export const agregarServicio = async (servicio) => {
+  
+  const payload = {
+    nombre: servicio.nombre,
+    precio: servicio.precio,
+  duracion_minutos: servicio.duracion_minutos ?? (servicio.duracion || 60),
+  };
+  return await post("/servicios", payload);
+};
+
+export const eliminarServicio = async (id) => {
+  await del(`/servicios/${id}`);
+  return true;
+};
+
+
