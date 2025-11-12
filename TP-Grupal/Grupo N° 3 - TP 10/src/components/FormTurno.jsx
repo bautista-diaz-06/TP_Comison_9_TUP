@@ -204,19 +204,20 @@
 //   );
 // }
 import { useState } from "react";
+import { agregarTurno as agregarTurnoService } from "../services/turnosService";
 import "../styles/FormTurno.css";
 
 export default function FormTurno({
   clientes,
   servicios,
-  agregarTurno,
+  onAgendar,
   setClienteSeleccionado
 }) {
   const [clienteId, setClienteId] = useState("");
   const [servicioId, setServicioId] = useState("");
   const [fechaHora, setFechaHora] = useState("");
 
-  const enviar = (e) => {
+  const enviar = async (e) => {
     e.preventDefault();
     if (!clienteId || !servicioId || !fechaHora)
       return alert("Completa todos los campos");
@@ -226,20 +227,19 @@ export default function FormTurno({
 
     if (!cliente || !servicio) return alert("Cliente o servicio no válidos");
 
-    const nuevoTurno = {
-      id: Date.now(),
-      clienteId: cliente.id,
-      clienteNombre: cliente.nombre,
-      servicioId: servicio.id,
-      servicioNombre: servicio.nombre,
-      fechaHora,
-      estado: "pendiente"
-    };
-
-    agregarTurno(nuevoTurno);
-    setFechaHora("");
-    setClienteId("");
-    setServicioId("");
+    try {
+      await agregarTurnoService({
+        clienteId: cliente.id,
+        servicioId: servicio.id,
+        fechaHora
+      });
+      setFechaHora("");
+      setClienteId("");
+      setServicioId("");
+      onAgendar && onAgendar();
+    } catch (err) {
+      alert(err.message || "Error al guardar el turno");
+    }
   };
 
   return (
