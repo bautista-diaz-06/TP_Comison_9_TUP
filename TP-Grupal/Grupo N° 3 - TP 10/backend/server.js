@@ -9,7 +9,6 @@ app.use(express.json());
 
 
 
-<<<<<<< Updated upstream
 
 // ---------- CLIENTES ----------
 app.route("/clientes")
@@ -111,17 +110,6 @@ app.delete("/turnos/:id", async (req, res) => {
   res.json(r.affectedRows ? { ok: true } : { error: "Turno no encontrado" });
 });
 
-=======
-// rutas
-import clientesRouter from './Routes/ClientesRoute.js';
-import serviciosRouter from './Routes/ServiciosRoute.js';
-import turnosRouter from './Routes/TurnosRoute.js';
-
-// endpoints
-app.use("/clientes", clientesRouter);
-app.use("/servicios", serviciosRouter);
-app.use("/turnos", turnosRouter);
->>>>>>> Stashed changes
 
 
 

@@ -78,7 +78,7 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Clientes from "../components/Clientes";
@@ -86,37 +86,53 @@ import Servicios from "../components/Servicios";
 import FormTurno from "../components/FormTurno";
 import TurnosHoy from "../components/TurnosHoy";
 import HistorialCliente from "../components/HistorialCliente";
-import { fetchClientes } from "../services/clientesService";
-import { fetchServicios } from "../services/serviciosService";
-import { fetchTurnos } from "../services/turnosService";
 import "../styles/Home.css";
 
 export default function Home() {
-  const [clientes, setClientes] = useState([]);
-  const [servicios, setServicios] = useState([]);
-  const [turnos, setTurnos] = useState([]);
+  // CLIENTES
+  const [clientes, setClientes] = useState(() => {
+    const saved = localStorage.getItem("clientes");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // SERVICIOS
+  const [servicios, setServicios] = useState(() => {
+    const saved = localStorage.getItem("servicios");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          { id: 1, nombre: "Corte", duracion_minutos: 20 },
+          { id: 2, nombre: "Nutricion", duracion_minutos: 45 },
+          { id: 3, nombre: "Mechitas", duracion_minutos: 240 },
+        ];
+  });
+
+  // TURNOS
+  const [turnos, setTurnos] = useState(() => {
+    const saved = localStorage.getItem("turnos");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
-  const [recargar, setRecargar] = useState(0);
 
-  useEffect(() => {
-    const cargarDatos = async () => {
-      try {
-        const [clientesData, serviciosData, turnosData] = await Promise.all([
-          fetchClientes(),
-          fetchServicios(),
-          fetchTurnos()
-        ]);
-        setClientes(clientesData);
-        setServicios(serviciosData);
-        setTurnos(turnosData);
-      } catch (err) {
-        console.error("Error cargando datos:", err);
-      }
-    };
-    cargarDatos();
-  }, [recargar]);
+  // Funciones para agregar datos y guardar en localStorage
+  const agregarCliente = (nuevoCliente) => {
+    const updated = [...clientes, nuevoCliente];
+    setClientes(updated);
+    localStorage.setItem("clientes", JSON.stringify(updated));
+  };
 
-  const onAgendar = () => setRecargar(x => x + 1);
+  const agregarServicio = (nuevoServicio) => {
+    const updated = [...servicios, nuevoServicio];
+    setServicios(updated);
+    localStorage.setItem("servicios", JSON.stringify(updated));
+  };
+
+  const agregarTurno = (nuevoTurno) => {
+    const updated = [...turnos, { ...nuevoTurno, id: Date.now() }];
+    setTurnos(updated);
+    localStorage.setItem("turnos", JSON.stringify(updated));
+  };
 
   return (
     <div className="home-container">
@@ -126,25 +142,27 @@ export default function Home() {
         <Clientes
           clientes={clientes}
           setClientes={setClientes}
+          agregarCliente={agregarCliente} // pasamos la función
           onSelect={setClienteSeleccionado}
         />
       </section>
 
       <section id="servicios" className="section-container">
-        <Servicios servicios={servicios} setServicios={setServicios} />
+        <Servicios servicios={servicios} setServicios={setServicios} agregarServicio={agregarServicio} />
       </section>
 
       <section id="turnos" className="section-container">
         <FormTurno
           clientes={clientes}
           servicios={servicios}
-          onAgendar={onAgendar}
+          agregarTurno={agregarTurno}
+          clienteSeleccionado={clienteSeleccionado}
           setClienteSeleccionado={setClienteSeleccionado}
         />
       </section>
 
       <section id="turnos-hoy" className="section-container">
-        <TurnosHoy />
+        <TurnosHoy turnos={turnos} />
       </section>
 
       <section id="historial" className="section-container">

@@ -1,28 +1,28 @@
-import { get, post, patch, del } from "../api.js";
+// Simulación de turnos
+let turnos = [];
 
-export const fetchTurnos = async (fecha = null, cliente_id = null) => {
-  let query = "/turnos";
-  const params = [];
-  if (fecha) params.push(`fecha=${fecha}`);
-  if (cliente_id) params.push(`cliente_id=${cliente_id}`);
-  if (params.length) query += "?" + params.join("&");
-  return await get(query);
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+export const fetchTurnos = async () => {
+  await delay(200);
+  return turnos;
 };
 
 export const agregarTurno = async (turno) => {
-  const { clienteId, servicioId, fechaHora } = turno;
-  const inicio = new Date(fechaHora).toISOString().slice(0, 19).replace("T", " ");
-  return await post("/turnos", {
-    cliente_id: clienteId,
-    servicio_id: servicioId,
-    inicio
-  });
+  await delay(200);
+  const nuevo = { ...turno, id: Date.now() };
+  turnos.push(nuevo);
+  return nuevo;
 };
 
 export const actualizarTurno = async (id, datos) => {
-  return await patch(`/turnos/${id}/estado`, datos);
+  await delay(200);
+  turnos = turnos.map(t => t.id === id ? { ...t, ...datos } : t);
+  return turnos.find(t => t.id === id);
 };
 
 export const eliminarTurno = async (id) => {
-  return await del(`/turnos/${id}`);
+  await delay(200);
+  turnos = turnos.filter(t => t.id !== id);
+  return true;
 };
