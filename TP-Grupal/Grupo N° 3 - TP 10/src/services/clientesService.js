@@ -1,3 +1,7 @@
+import { get, post, del } from "../api.js";
+
+// ======= Simulación (DESACTIVADO) =======
+/*
 // Simula una "API" de clientes sin backend
 let clientes = [
   { id: 1, nombre: "Juan Pérez", email: "juan@mail.com", telefono: "123456" },
@@ -31,3 +35,24 @@ export const eliminarCliente = async (id) => {
   clientes = clientes.filter(c => c.id !== id);
   return true;
 };
+*/
+
+// ======= IMPLEMENTACIÓN REAL (usa backend) =======
+export const fetchClientes = async () => {
+  return await get("/clientes");
+};
+
+export const agregarCliente = async (cliente) => {
+  const payload = {
+    nombre: cliente.nombre,
+    correo: cliente.email ?? cliente.correo,
+    telefono: cliente.telefono,
+  };
+  return await post("/clientes", payload);
+};
+
+export const eliminarCliente = async (id) => {
+  await del(`/clientes/${id}`);
+  return true;
+};
+

@@ -9,50 +9,15 @@ app.use(express.json());
 
 
 
+// rutas
+import clientesRouter from './Routes/ClientesRoute.js';
+import serviciosRouter from './Routes/ServiciosRoute.js';
 
-// ---------- CLIENTES ----------
-app.route("/clientes")
-  .get(async (_, res) => {
-    const [r] = await pool.query("SELECT * FROM clientes ORDER BY creado_en DESC");
-    res.json(r);
-  })
-  .post(async (req, res) => {
-    const { nombre, correo, telefono } = req.body;
-    const [r] = await pool.query("INSERT INTO clientes (nombre, correo, telefono) VALUES (?,?,?)", [nombre, correo, telefono]);
-    const [[nuevo]] = await pool.query("SELECT * FROM clientes WHERE id=?", [r.insertId]);
-    res.status(201).json(nuevo);
-  });
-
-app.delete("/clientes/:id", async (req, res) => {
-  const { id } = req.params;
-  await pool.query("DELETE FROM turnos WHERE cliente_id=?", [id]);
-  const [r] = await pool.query("DELETE FROM clientes WHERE id=?", [id]);
-  res.json(r.affectedRows ? { ok: true } : { error: "Cliente no encontrado" });
-});
+// endpoints
+app.use("/clientes", clientesRouter);
+app.use("/servicios", serviciosRouter);
 
 
-
-
-
-// ------- SERVICIOS ----------
-app.route("/servicios")
-  .get(async (_, res) => {
-    const [r] = await pool.query("SELECT * FROM servicios ORDER BY precio ASC");
-    res.json(r);
-  })
-  .post(async (req, res) => {
-    const { nombre, precio, duracion_minutos = 60 } = req.body;
-    const [r] = await pool.query("INSERT INTO servicios (nombre, precio, duracion_minutos) VALUES (?,?,?)", [nombre, precio, duracion_minutos]);
-    const [[nuevo]] = await pool.query("SELECT * FROM servicios WHERE id=?", [r.insertId]);
-    res.status(201).json(nuevo);
-  });
-
-app.delete("/servicios/:id", async (req, res) => {
-  const { id } = req.params;
-  await pool.query("DELETE FROM turnos WHERE servicio_id=?", [id]);
-  const [r] = await pool.query("DELETE FROM servicios WHERE id=?", [id]);
-  res.json(r.affectedRows ? { ok: true } : { error: "Servicio no encontrado" });
-});
 
 
 
