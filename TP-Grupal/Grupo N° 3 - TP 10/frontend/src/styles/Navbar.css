@@ -33,8 +33,12 @@
   transition: 0.3s;
 }
 
-.navbar-links li a:hover {
-  text-decoration: underline;
+.navbar-links li a:hover,
+.navbar-links li a:focus,
+.navbar-links li a:active {
+  /* Sin decoración en hover/focus/active */
+  text-decoration: none;
+  outline: none;
 }
 
 .logout-btn {

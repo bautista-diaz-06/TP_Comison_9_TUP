@@ -2,8 +2,7 @@
 export async function loginUsuario(usuario, password) {
   // Simulación de "usuarios guardados"
   const usuarios = [
-    { id: 1, usuario: "admin", password: "1234", rol: "admin" },
-    { id: 2, usuario: "cliente", password: "abcd", rol: "cliente" },
+    { id: 1, usuario: "admin", password: "1234", rol: "admin" }
   ];
 
   // Simular demora de red

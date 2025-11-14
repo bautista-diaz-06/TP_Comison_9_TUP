@@ -129,7 +129,18 @@ export default function HistorialCliente({
   if (!clienteSeleccionado)
     return <p className="info-msg">Selecciona un cliente para ver historial.</p>;
 
-  const historial = turnos.filter((t) => t.clienteId === clienteSeleccionado.id);
+  // Normalizar distintas formas de los objetos 'turno' (backend usa snake_case: cliente_id, inicio, servicio_nombre;
+  // en el cliente local pueden usarse clienteId, fechaHora, servicioNombre). Con esto mostramos correctamente turnos
+  // tanto pasados como futuros independientemente de la forma de los campos.
+  const normalized = (turnos || []).map((t) => ({
+    id: t.id ?? t.ID ?? null,
+    clienteId: t.clienteId ?? t.cliente_id ?? t.cliente ?? null,
+    servicioNombre: t.servicioNombre ?? t.servicio_nombre ?? t.servicioName ?? t.servicio ?? "",
+    fechaHora: t.fechaHora ?? t.inicio ?? t.fecha ?? null,
+    estado: t.estado ?? t.estado_turno ?? "",
+  }));
+
+  const historial = normalized.filter((t) => String(t.clienteId) === String(clienteSeleccionado.id));
 
   return (
     <div className="card">

@@ -204,42 +204,59 @@
 //   );
 // }
 import { useState } from "react";
+import { agregarTurno as agregarTurnoService } from "../services/turnosService";
 import "../styles/FormTurno.css";
 
-export default function FormTurno({
-  clientes,
-  servicios,
-  agregarTurno,
-  setClienteSeleccionado
-}) {
+export default function FormTurno({ clientes = [], servicios = [], onAgendar, setClienteSeleccionado }) {
   const [clienteId, setClienteId] = useState("");
   const [servicioId, setServicioId] = useState("");
   const [fechaHora, setFechaHora] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const enviar = (e) => {
+  const enviar = async (e) => {
     e.preventDefault();
-    if (!clienteId || !servicioId || !fechaHora)
-      return alert("Completa todos los campos");
+    if (!clienteId || !servicioId || !fechaHora) return alert("Completa todos los campos");
 
-    const cliente = clientes.find(c => String(c.id) === String(clienteId));
-    const servicio = servicios.find(s => String(s.id) === String(servicioId));
+    const sourceClientes = Array.isArray(clientes) ? clientes : [];
+    const sourceServicios = Array.isArray(servicios) ? servicios : [];
+
+    const cliente = sourceClientes.find((c) => String(c.id) === String(clienteId));
+    const servicio = sourceServicios.find((s) => String(s.id) === String(servicioId));
 
     if (!cliente || !servicio) return alert("Cliente o servicio no válidos");
 
     const nuevoTurno = {
-      id: Date.now(),
       clienteId: cliente.id,
-      clienteNombre: cliente.nombre,
       servicioId: servicio.id,
-      servicioNombre: servicio.nombre,
       fechaHora,
-      estado: "pendiente"
     };
 
-    agregarTurno(nuevoTurno);
-    setFechaHora("");
-    setClienteId("");
-    setServicioId("");
+    setIsSubmitting(true);
+    try {
+      // Intentar persistir en backend y obtener el recurso guardado
+      const saved = await agregarTurnoService(nuevoTurno);
+      // Notificar al resto de la app con el objeto real devuelto por el backend
+      try {
+        window.dispatchEvent(new CustomEvent("turnosChanged", { detail: saved }));
+      } catch (e) {
+        console.error("Error dispatching turnosChanged event:", e);
+      }
+      if (typeof onAgendar === "function") onAgendar();
+    } catch (err) {
+      console.error("Error guardando turno en backend:", err);
+      // En caso de fallo, aún notificamos para que la UI intente recargar (opcional)
+      try {
+        window.dispatchEvent(new CustomEvent("turnosChanged", { detail: nuevoTurno }));
+      } catch (e) {
+        console.error("Error dispatching fallback turnosChanged event:", e);
+      }
+      if (typeof onAgendar === "function") onAgendar();
+    } finally {
+      setFechaHora("");
+      setClienteId("");
+      setServicioId("");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -250,33 +267,26 @@ export default function FormTurno({
           value={clienteId}
           onChange={(e) => {
             setClienteId(e.target.value);
-            const cliente = clientes.find(c => String(c.id) === e.target.value);
-            setClienteSeleccionado(cliente);
+            const cliente = (Array.isArray(clientes) ? clientes : []).find((c) => String(c.id) === e.target.value);
+            if (typeof setClienteSeleccionado === "function") setClienteSeleccionado(cliente);
           }}
         >
           <option value="">Selecciona Cliente</option>
-          {clientes.map(c => (
+          {(Array.isArray(clientes) ? clientes : []).map((c) => (
             <option key={c.id} value={c.id}>{c.nombre}</option>
           ))}
         </select>
 
-        <select
-          value={servicioId}
-          onChange={(e) => setServicioId(e.target.value)}
-        >
+        <select value={servicioId} onChange={(e) => setServicioId(e.target.value)}>
           <option value="">Selecciona Servicio</option>
-          {servicios.map(s => (
+          {(Array.isArray(servicios) ? servicios : []).map((s) => (
             <option key={s.id} value={s.id}>{s.nombre}</option>
           ))}
         </select>
 
-        <input
-          type="datetime-local"
-          value={fechaHora}
-          onChange={(e) => setFechaHora(e.target.value)}
-        />
+        <input type="datetime-local" value={fechaHora} onChange={(e) => setFechaHora(e.target.value)} />
 
-        <button type="submit">Agregar Turno</button>
+        <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Guardando..." : "Agregar Turno"}</button>
       </form>
     </div>
   );
