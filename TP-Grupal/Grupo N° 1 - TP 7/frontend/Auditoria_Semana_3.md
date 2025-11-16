@@ -35,3 +35,4 @@ Describir brevemente lo encontrado al abrir el proyecto:
 
 ## Observaciones finales (opcional)
 - Comentarios sobre el flujo de trabajo, dificultades o acuerdos del equipo.
+_ Sobre el flujo de trabajo, se nos vio complicada la tarea ya que por las fechas de parciales, además de que nos sumaran un parcial extra de programación que no estaba contemplado, se complico la tarea de realizar el trabajo de manera optima.
