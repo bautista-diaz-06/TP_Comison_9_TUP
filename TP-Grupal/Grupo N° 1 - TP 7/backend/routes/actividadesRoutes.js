@@ -1,12 +1,12 @@
-const express = requiere("express");
-const actividadesController = requiere ("../controllers/actividadesController");
+
+import express from 'express';
+import { fetchActividades, addActividad, editActividad, removeActividad } from '../controllers/actividadController.js';
 
 const router = express.Router();
 
-router.get("/", actividadesController.getAll);
-router.get("/:id", actividadesController.getById);
-router.post("/", actividadesController.create);
-router.put("/:id", actividadesController.update);
-router.delete("/:id", actividadesController.remove);
+router.get('/actividades', fetchActividades);
+router.post('/actividades', addActividad);
+router.put('/actividades/:id', editActividad);
+router.delete('/actividades/:id', removeActividad);
 
-module.exports = router;
+export default router;

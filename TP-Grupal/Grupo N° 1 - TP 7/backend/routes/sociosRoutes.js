@@ -1,12 +1,12 @@
-const express = requiere("express");
-const socioController = requiere ("../controllers/socioController");
+
+import express from 'express';
+import { fetchSocios, addSocio, editSocio, removeSocio } from '../controllers/socioController.js';
 
 const router = express.Router();
 
-router.get("/", socioController.getAll);
-router.get("/:id", socioController.getById);
-router.post("/", socioController.create);
-router.put("/:id", socioController.update);
-router.delete("/:id", socioController.remove);
+router.get('/socios', fetchSocios);
+router.post('/socios', addSocio);
+router.put('/socios/:id', editSocio);
+router.delete('/socios/:id', removeSocio);
 
-module.exports = router;
+export default router;

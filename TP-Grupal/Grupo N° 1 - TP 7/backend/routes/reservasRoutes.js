@@ -1,12 +1,12 @@
-const express = requiere("express");
-const reservaController = requiere ("../controllers/reservaController");
+
+import express from 'express';
+import { fetchReservas, addReserva, editReserva, removeReserva } from '../controllers/reservaController.js';
 
 const router = express.Router();
 
-router.get("/", reservaController.getAll);
-router.get("/:id", reservaController.getById);
-router.post("/", reservaController.create);
-router.put("/:id", reservaController.update);
-router.delete("/:id", reservaController.remove);
+router.get('/reservas', fetchReservas);
+router.post('/reservas', addReserva);
+router.put('/reservas/:id', editReserva);
+router.delete('/reservas/:id', removeReserva);
 
-module.exports = router;
+export default router;
