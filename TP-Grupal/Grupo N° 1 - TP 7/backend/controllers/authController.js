@@ -16,17 +16,25 @@ import { findUserByEmailAndPassword } from '../models/authModel.js';
 //  }
 //};
 
+import pool from '../config/db.js';
+
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    // Aquí validas contra la base de datos
-    const [rows] = await pool.query('SELECT * FROM usuarios WHERE email=? AND password=?', [email, password]);
+    const [rows] = await pool.query(
+      'SELECT * FROM users WHERE email=? AND password=?',
+      [email, password]
+    );
+
     if (rows.length > 0) {
-      res.json(rows[0]); // Usuario encontrado
+      return res.json(rows[0]); 
     } else {
-      res.status(401).json({ error: 'Credenciales inválidas' });
+      return res.status(401).json({ error: 'Credenciales inválidas' });
     }
+
   } catch (error) {
+    console.error("ERROR LOGIN:", error);
     res.status(500).json({ error: 'Error en el servidor' });
   }
 };

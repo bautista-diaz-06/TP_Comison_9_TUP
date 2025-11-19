@@ -1,8 +1,7 @@
-import { post} from './api';
+import { post } from './api';
 
 export async function loginUser(email, password) {
- 
-const user = await post('/auth/login', { email, password });
+  // RUTA CORRECTA
+  const user = await post('/api/auth', { email, password });
   return user;
-
 }
