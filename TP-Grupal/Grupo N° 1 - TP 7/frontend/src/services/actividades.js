@@ -1,6 +1,6 @@
-import { get, post, put, del } from './api'
+import { get, post, put, del } from "./api";
 
-const base = '/actividades';
+const base = "/api/actividades";
 export const fetchActividades = () => get(base);
 export const createActividad = (data) => post(base, data);
 export const updateActividad = (id, data) => put(`${base}/${id}`, data);

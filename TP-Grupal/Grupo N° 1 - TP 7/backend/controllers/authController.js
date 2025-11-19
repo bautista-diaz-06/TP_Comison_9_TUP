@@ -1,40 +1,32 @@
-
-import { findUserByEmailAndPassword } from '../models/authModel.js';
-
-//export const loginUser = async (req, res) => {
-// try {
-// const { email, password } = req.query; // porque el front lo envía por query
-//    const users = await findUserByEmailAndPassword(email, password);
-//
-//    if (Array.isArray(users) && users.length > 0) {
-//      res.json(users[0]); // devuelve el primer usuario
-//    } else {
-//      res.status(401).json({ error: 'Credenciales inválidas' });
-//    }
-//  } catch (error) {
-//    res.status(500).json({ error: error.message });
-//  }
-//};
-
-import pool from '../config/db.js';
+// backend/controllers/authController.js
+import pool from "../config/db.js";
 
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  // Para ver qué llega desde el front
+  console.log("🟦 LOGIN REQUEST:", {
+    body: req.body,
+    query: req.query,
+  });
+
+  // Preferimos body (JSON). Si por alguna razón viene por query, también lo tomamos.
+  const email = req.body.email || req.query.email;
+  const password = req.body.password || req.query.password;
 
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM socios WHERE email=? AND password=?',
+      "SELECT * FROM socios WHERE email = ? AND password = ?",
       [email, password]
     );
 
     if (rows.length > 0) {
-      return res.json(rows[0]); 
+      // Usuario encontrado
+      return res.json(rows[0]);
     } else {
-      return res.status(401).json({ error: 'Credenciales inválidas' });
+      // Usuario o contraseña incorrectos
+      return res.status(401).json({ error: "Credenciales inválidas" });
     }
-
   } catch (error) {
     console.error("ERROR LOGIN:", error);
-    res.status(500).json({ error: 'Error en el servidor' });
+    res.status(500).json({ error: "Error en el servidor" });
   }
 };
