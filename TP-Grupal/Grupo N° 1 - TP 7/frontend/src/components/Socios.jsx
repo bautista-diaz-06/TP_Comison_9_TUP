@@ -1,25 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SocioForm from "./SocioForm";
 import SociosList from "./SocioList";
+import { fetchSocios as fetchSociosApi, createSocio as createSocioApi, updateSocio as updateSocioApi, deleteSocio as deleteSocioApi } from "../services/socios";
 
-function Socios({ socios, setSocios, onAdd, onUpdate, onDelete }) {
+function Socios() {
+  const [socios, setSocios] = useState([]);
   const [socioToEdit, setSocioToEdit] = useState(null);
 
-  const addSocio = (newSocio) => {
-    if (onAdd) return onAdd(newSocio);
-    setSocios([...socios, newSocio]);
+  // Cargar socios desde la base de datos al montar el componente
+  useEffect(() => {
+    fetchSociosApi()
+      .then(setSocios)
+      .catch(err => console.error("Error al cargar socios:", err));
+  }, []);
+
+ const addSocio = async (newSocio) => {
+  try {
+    const { id } = await createSocioApi(newSocio);
+    setSocios([...socios, { ...newSocio, id }]);
+  } catch (err) {
+    console.error("Error creando socio:", err);
+  }
+};
+
+  const updateSocio = async (updated) => {
+    try {
+      await updateSocioApi(updated.id, updated);
+      setSocios(socios.map(s => (s.id === updated.id ? updated : s)));
+      setSocioToEdit(null);
+    } catch (err) {
+      console.error("Error actualizando socio:", err);
+    }
   };
-  const updateSocio = (updatedSocio) => {
-    if (onUpdate) return onUpdate(updatedSocio)
-    setSocios(socios.map((s) => (s.id === updatedSocio.id ? updatedSocio : s)))
-    setSocioToEdit(null)
+
+  const deleteSocio = async (id) => {
+    try {
+      await deleteSocioApi(id);
+      setSocios(socios.filter(s => s.id !== id));
+    } catch (err) {
+      console.error("Error eliminando socio:", err);
+    }
   };
-  const deleteSocio = (id) => {
-    if (onDelete) return onDelete(id)
-    setSocios(socios.filter((s) => s.id !== id))
-  };
-  const handleEdit = (socio) => setSocioToEdit(socio)
-  const handleCancelEdit = () => setSocioToEdit(null)
+
+  const handleEdit = (socio) => setSocioToEdit(socio);
+  const handleCancelEdit = () => setSocioToEdit(null);
 
   return (
     <div className="page-container">

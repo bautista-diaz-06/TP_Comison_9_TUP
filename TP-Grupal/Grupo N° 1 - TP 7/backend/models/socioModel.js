@@ -7,19 +7,20 @@ export const getAllSocios = async () => {
 };
 
 export const createSocio = async (data) => {
-  const { nombre, apellido, email, telefono, fecha_nacimiento } = data;
+  const { nombre, apellido, email, password, rol } = data;
+  console.log("Datos que llegan al backend:", data);
   const [result] = await pool.query(
-    'INSERT INTO socios (nombre, apellido, email, telefono, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)',
-    [nombre, apellido, email, telefono, fecha_nacimiento]
+     'INSERT INTO socios (nombre, apellido, email, password, rol) VALUES (?, ?, ?, ?, ?)',
+    [nombre, apellido, email, password, rol]
   );
   return result.insertId;
 };
 
 export const updateSocio = async (id, data) => {
-  const { nombre, apellido, email, telefono, fecha_nacimiento } = data;
+  const { nombre, apellido, email, password, rol } = data;
   await pool.query(
-    'UPDATE socios SET nombre=?, apellido=?, email=?, telefono=?, fecha_nacimiento=? WHERE id=?',
-    [nombre, apellido, email, telefono, fecha_nacimiento, id]
+     'UPDATE socios SET nombre=?, apellido=?, email=?, password=?, rol=? WHERE id=?',
+    [nombre, apellido, email, password, rol, id]
   );
 };
 

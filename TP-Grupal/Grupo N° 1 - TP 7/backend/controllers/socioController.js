@@ -11,6 +11,7 @@ export const fetchSocios = async (req, res) => {
 };
 
 export const addSocio = async (req, res) => {
+  console.log("Body recibido en POST /socios:", req.body);  // <--- Ver qué llega
   try {
     const id = await createSocio(req.body);
     res.status(201).json({ message: 'Socio creado', id });
