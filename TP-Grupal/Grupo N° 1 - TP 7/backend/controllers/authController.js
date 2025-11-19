@@ -23,7 +23,7 @@ export const loginUser = async (req, res) => {
 
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM users WHERE email=? AND password=?',
+      'SELECT * FROM socios WHERE email=? AND password=?',
       [email, password]
     );
 

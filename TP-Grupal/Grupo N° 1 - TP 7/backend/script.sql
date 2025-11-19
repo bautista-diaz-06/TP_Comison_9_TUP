@@ -1,54 +1,51 @@
 CREATE DATABASE IF NOT EXISTS gimnasio;
 USE gimnasio;
 
--- Tabla de usuarios
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
-  email VARCHAR(150) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  rol VARCHAR(50) DEFAULT 'cliente'
+-- Tabla socios
+CREATE TABLE IF NOT EXISTS socios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    rol ENUM('admin', 'cliente') DEFAULT 'cliente'
 );
 
--- Tabla de socios
-CREATE TABLE socios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
-  apellido VARCHAR(100) NOT NULL,
-  email VARCHAR(150) UNIQUE NOT NULL,
-  telefono VARCHAR(20),
-  fecha_nacimiento DATE,
-  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Tabla actividades
+CREATE TABLE IF NOT EXISTS actividades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
 );
 
--- Tabla de actividades
-CREATE TABLE actividades (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
-  descripcion TEXT,
-  duracion INT, -- en minutos
-  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Tabla reservas
+CREATE TABLE IF NOT EXISTS reservas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_socio INT NOT NULL,
+    id_actividad INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    FOREIGN KEY (id_socio) REFERENCES socios(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_actividad) REFERENCES actividades(id) ON DELETE CASCADE
 );
 
--- Tabla de reservas
-CREATE TABLE reservas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  socio_id INT NOT NULL,
-  clase_id INT NOT NULL,
-  fecha_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  estado VARCHAR(20) DEFAULT 'pendiente',
-  FOREIGN KEY (socio_id) REFERENCES socios(id)
-  -- clase_id se puede relacionar con actividades si lo deseas
-);
+-- Datos de ejemplo
+INSERT INTO socios (nombre, apellido, email, rol) VALUES
+('Admin', 'Principal', 'admin@gym.com', 'admin'),
+('Juan', 'Pérez', 'juanp@example.com', 'cliente');
 
--- (Opcional) Tabla de membresías
-CREATE TABLE membresias (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  tipo VARCHAR(50) NOT NULL,
-  precio DECIMAL(10,2) NOT NULL,
-  duracion_dias INT NOT NULL
-);
+INSERT INTO actividades (nombre, descripcion) VALUES
+('Yoga', 'Clase de yoga relajante'),
+('Spinning', 'Clase de spinning intensa');
 
--- Relación entre socios y membresías
-ALTER TABLE socios ADD COLUMN membresia_id INT;
-ALTER TABLE socios ADD FOREIGN KEY (membresia_id) REFERENCES membresias(id);
+INSERT INTO reservas (id_socio, id_actividad, fecha) VALUES
+(2, 1, '2025-11-20 10:00:00'),
+(2, 2, '2025-11-21 18:00:00');
+ALTER TABLE socios
+ADD COLUMN password VARCHAR(255) NOT NULL AFTER email;
+INSERT INTO socios (nombre, apellido, email, password, rol) VALUES
+('Admin', 'Principal', 'admin@gym.com', 'admin', 'admin'),
+('Juan', 'Pérez', 'juanp@example.com', '1234', 'cliente');
+DELETE FROM socios WHERE email IN ('admin@gym.com', 'juanp@example.com');
+
+INSERT INTO socios (nombre, apellido, email, password, rol) VALUES
+('Admin', 'Principal', 'admin@gym.com', 'admin', 'admin'),
+('Juan', 'Pérez', 'juanp@example.com', '1234', 'cliente');
