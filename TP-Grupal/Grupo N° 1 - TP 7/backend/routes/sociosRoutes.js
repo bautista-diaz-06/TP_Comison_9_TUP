@@ -4,9 +4,9 @@ import { fetchSocios, addSocio, editSocio, removeSocio } from '../controllers/so
 
 const router = express.Router();
 
-router.get('/socios', fetchSocios);
-router.post('/socios', addSocio);
-router.put('/socios/:id', editSocio);
-router.delete('/socios/:id', removeSocio);
+router.get('/', fetchSocios);
+router.post('/', addSocio);
+router.put('/:id', editSocio);
+router.delete('/:id', removeSocio);
 
 export default router;

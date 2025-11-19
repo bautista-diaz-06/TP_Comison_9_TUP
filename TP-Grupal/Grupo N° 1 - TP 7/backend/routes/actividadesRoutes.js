@@ -4,9 +4,9 @@ import { fetchActividades, addActividad, editActividad, removeActividad } from '
 
 const router = express.Router();
 
-router.get('/actividades', fetchActividades);
-router.post('/actividades', addActividad);
-router.put('/actividades/:id', editActividad);
-router.delete('/actividades/:id', removeActividad);
+router.get('/', fetchActividades);
+router.post('/', addActividad);
+router.put('/:id', editActividad);
+router.delete('/:id', removeActividad);
 
 export default router;

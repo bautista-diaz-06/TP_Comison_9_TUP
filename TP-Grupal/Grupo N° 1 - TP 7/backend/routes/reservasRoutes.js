@@ -4,9 +4,9 @@ import { fetchReservas, addReserva, editReserva, removeReserva } from '../contro
 
 const router = express.Router();
 
-router.get('/reservas', fetchReservas);
-router.post('/reservas', addReserva);
-router.put('/reservas/:id', editReserva);
-router.delete('/reservas/:id', removeReserva);
+router.get('/', fetchReservas);
+router.post('/', addReserva);
+router.put('/:id', editReserva);
+router.delete('/:id', removeReserva);
 
 export default router;
