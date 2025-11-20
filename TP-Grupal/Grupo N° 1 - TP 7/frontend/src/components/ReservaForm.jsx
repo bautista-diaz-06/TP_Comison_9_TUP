@@ -21,26 +21,35 @@ function ReservasForm({ socios = [], actividades = [], onAddReserva, onUpdateRes
     }
   }, [reservaToEdit]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!socio || !actividad || !fecha) {
-      setError("Todos los campos son obligatorios.");
-      return;
-    }
-    setError("");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const reservaData = { socio, actividad, fecha };
+  if (!socio || !actividad || !fecha) {
+    setError("Todos los campos son obligatorios.");
+    return;
+  }
 
+  setError("");
+  const reservaData = { socio, actividad, fecha };
+
+  try {
     if (reservaToEdit) {
-      onUpdateReserva({ ...reservaToEdit, ...reservaData });
+      await onUpdateReserva(reservaToEdit.id, reservaData);
     } else {
-      onAddReserva({ id: Date.now(), ...reservaData });
+      await onAddReserva(reservaData);
     }
 
     setSocio("");
     setActividad("");
     setFecha("");
-  };
+  } catch (err) {
+    console.error("Error guardando reserva:", err);
+    setError("Error al guardar la reserva.");
+  }
+};
+
+
+
 
   return (
     <form onSubmit={handleSubmit} className="reservas-form">

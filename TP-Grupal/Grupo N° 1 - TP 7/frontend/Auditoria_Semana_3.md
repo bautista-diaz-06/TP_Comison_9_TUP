@@ -1,11 +1,11 @@
 # 🧾 Auditoría — Semana 3  
-### Grupo Nº: ___  
-### Tema asignado: ___  
+### Grupo Nº: 1
+### Tema asignado: Sistema de gestión de gimnasio  
 ### Integrantes (Nombre completo + Legajo):
-- …
-- …
-- …
-
+- Cabanellas Rubén - 61123
+- Díaz Bautista - 61586
+- Salvatierra Facundo - 61738
+- Velardez Iván - 61061
 ---
 
 ## 1) RELEVAMIENTO — Antes de comenzar a trabajar
@@ -21,7 +21,7 @@ Describir brevemente lo encontrado al abrir el proyecto:
 - El primero """error""" que encontramos fue que al actualizar el repositorio todos los archivos nos aparecian con una D
 - En cuanto a bugs e imports, no hay errores. Pero mientras las rutas, no se sigue la estructura de ponerlas en un endpoint y a las rutas internas, están hardcodeadas y no guardadas en variables
 - Falta carpeta endpoints y data
-- En cuanto a la estructura del las carpetas, lo nombrado anteriormente. Y en cuanto a codigo, es una forma interesante nueva de ver como está este codigo pero hay varios faltantes. Axios, .env, la estructura de los servicios es un poco confusa, hay algunos hooks que están metidos dentro de cada jsx a pesar de tener una carpeta hooks donde se podia hacer los hooks personalizados, y se utiliza codigo que nuestro grupo nunca utilizó como por ejemplo, "headers" en services -> api
+- En cuanto a la estructura del las carpetas, lo nombrado anteriormente. Y en cuanto a codigo, es una forma interesante nueva de ver como está este codigo pero hay varios faltantes. Axios, .env, la estructura de los servicios es un poco confusa, hay algunos hooks que están metidos dentro de cada jsx a pesar de tener una carpeta hooks donde se podia hacer los hooks personalizados, y se utiliza codigo que nuestro grupo nunca utilizó como por ejemplo, "headers" en services -> api. También, el codigo utiliza los hooks Context y Callbacks del mismo react
 
 ## 2) SOLUCIONES IMPLEMENTADAS + NUEVO AGREGADO
 

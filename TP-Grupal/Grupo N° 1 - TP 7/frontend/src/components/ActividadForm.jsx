@@ -18,22 +18,34 @@ function ActividadForm({ onAddActividad, onUpdateActividad, actividadToEdit, onC
     }
   }, [actividadToEdit]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!nombre.trim() || !descripcion.trim()) {
-      setError("Todos los campos son obligatorios.");
-      return;
-    }
-    setError("");
-    const actividadData = { nombre, descripcion };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!nombre.trim() || !descripcion.trim()) {
+    setError("Todos los campos son obligatorios.");
+    return;
+  }
+
+  setError("");
+  const actividadData = { nombre, descripcion };
+
+  try {
     if (actividadToEdit) {
-      onUpdateActividad({ ...actividadToEdit, ...actividadData });
+      await onUpdateActividad(actividadToEdit.id, actividadData);
     } else {
-      onAddActividad({ id: Date.now(), ...actividadData });
+      await onAddActividad(actividadData);
     }
+
     setNombre("");
     setDescripcion("");
-  };
+  } catch (err) {
+    console.error("Error guardando actividad:", err);
+    setError("Error al guardar la actividad.");
+  }
+};
+
+
+
 
   return (
     <form className="actividad-form-container" onSubmit={handleSubmit}>
