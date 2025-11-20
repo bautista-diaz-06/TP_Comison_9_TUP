@@ -46,4 +46,3 @@ export const updateActividad = async (id, data) => {
 export const deleteActividad = async (id) => {
   await pool.query("DELETE FROM actividades WHERE id = ?", [id]);
 };
-
